@@ -41,26 +41,26 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public JWTAuthResponse login(LoginDto loginDto) {
         log.info("loginDto : {}", loginDto.getPassword());
-        String input = loginDto.getIdOrEmail();
+        String input = loginDto.getUsernameOrEmail();
         log.info("input: {}", input);
-        MemberDto authenticationEntity = memberRepository.findByIdAndEmail(input, input)
-                .orElseThrow(() -> new ResourceNotFoundException("MemberDto", "IdAndEmail", input));
+        MemberDto authenticationEntity = memberRepository.findByUsernameAndEmail(input, input)
+                .orElseThrow(() -> new ResourceNotFoundException("MemberDto", "UsernameAndEmail", input));
 
         Member authReq = MemberMapper.toEntity(MemberDto.builder()
-                .id(authenticationEntity.getId())
+                .username(authenticationEntity.getUsername())
                 .password(loginDto.getPassword())
                 .build());
         try {
             Authentication authResult = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            authReq.getId(),
+                            authReq.getUsername(),
                             authReq.getPassword()
                     )
             );
             SecurityContextHolder.getContext().setAuthentication(authResult);
             String jwt = jwtTokenProvider.generateToken(authResult);
             String refreshToken = UUID.randomUUID().toString().replace("-", "");
-            redisTemplate.opsForValue().set(refreshToken, authReq.getId());
+            redisTemplate.opsForValue().set(refreshToken, authReq.getUsername());
             redisTemplate.expire(refreshToken, refreshTokenExpirationDate, TimeUnit.MILLISECONDS);
             return new JWTAuthResponse(jwt, "Bearer", refreshToken);
         } catch (Exception e) {

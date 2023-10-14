@@ -21,7 +21,7 @@ public class RefreshTokenService {
     @Transactional
     public JWTAuthResponse refresh(String refreshToken) {
         if (jwtTokenProvider.validateRefreshToken(refreshToken)) {
-            String username = refreshTokenRepository.findByToken(refreshToken).get().getId();
+            String username = refreshTokenRepository.findByToken(refreshToken).get().getUsername();
             Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
 
             String newAccessToken = jwtTokenProvider.generateToken(authentication);

@@ -110,7 +110,7 @@ public class AuthController {
             Cookie newRefreshTokenCookie = new Cookie("refreshToken", jwtResponse.getRefreshToken());
             newRefreshTokenCookie.setHttpOnly(true);
             newRefreshTokenCookie.setPath("/");
-            newRefreshTokenCookie.setMaxAge(30 * 24 * 60 * 60);  // for example: 1 month
+            newRefreshTokenCookie.setMaxAge(7 * 24 * 60 * 60);
 //            newRefreshTokenCookie.setSecure(true);
 
             ResponseEntity.BodyBuilder response = ResponseEntity.ok();
@@ -122,7 +122,6 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
         }
     }
-
 
 }
 

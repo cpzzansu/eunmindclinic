@@ -1,9 +1,6 @@
 package org.teamhub.groupware.common.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -13,53 +10,46 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @AllArgsConstructor
-@Table(name = "TB_MEMBERS")
+@Table(name = "MEMBERS")
 public class Member {
 
     @Id
-    @Column(name = "ID", nullable = false, length = 20)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name = "GROUP_ID", nullable = true, length = 20)
-    private String groupId;
+    @Column(name = "username", nullable = false, length = 30)
+    private String username;
 
-    @Column(name = "REF_ID", nullable = true, length = 20)
-    private String refId;
-
-    @Column(name = "COUNTRY", nullable = true, length = 200)
-    private String country;
-
-    @Column(name = "PASSWD", nullable = true, length = 1000)
+    @Column(name = "password", nullable = false, length = 1000)
     private String password;
 
-    @Column(name = "PASSWD_IO", nullable = true, length = 1000)
-    private String passwordIO;
-
-    @Column(name = "COMPANY", nullable = true, length = 200)
-    private String company;
-
-    @Column(name = "NAME", nullable = true, length = 45)
+    @Column(name = "name", nullable = true, length = 45)
     private String name;
 
-    @Column(name = "EMAIL", nullable = true, length = 100)
+    @Column(name = "email", nullable = true, length = 100)
     private String email;
 
-    @Column(name = "TEL", nullable = true, length = 45)
+    @Column(name = "tel", nullable = true, length = 45)
     private String tel;
 
-    @Column(name = "HP", nullable = true, length = 45)
+    @Column(name = "hp", nullable = true, length = 45)
     private String hp;
 
-    @Column(name = "LEVEL", nullable = true)
-    private int level;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private Role role;
 
-    @Column(name = "STATUS", nullable = true)
-    private int status;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private Status status;
 
-    @Column(name = "RDATE", nullable = true)
+    @Column(name = "created_by", nullable = true, length = 30)
+    private String createdBy;
+
+    @Column(name = "rdate", nullable = true)
     private LocalDateTime rdate;
-
-    @Column(name = "LDATE", nullable = true)
+    // 수정 삭제
+    @Column(name = "ldate", nullable = true)
     private LocalDateTime ldate;
 
 

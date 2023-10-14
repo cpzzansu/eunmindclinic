@@ -22,16 +22,16 @@ public class CustomUserDetailsService implements UserDetailsService {
     private final MemberRepository memberRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String idOrEmail) throws UsernameNotFoundException {
-        MemberDto memberDto = memberRepository.findByIdAndEmail(idOrEmail, idOrEmail)
+    public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
+        MemberDto memberDto = memberRepository.findByUsernameAndEmail(usernameOrEmail, usernameOrEmail)
                 .orElseThrow(() ->
-                        new UsernameNotFoundException("User not found with username or email: " + idOrEmail));
+                        new UsernameNotFoundException("User not found with username or email: " + usernameOrEmail));
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_" + memberDto.getLevel()));
+        grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_" + memberDto.getRole().name()));
 
         return new User(
-                memberDto.getId(),
+                memberDto.getUsername(),
                 memberDto.getPassword(),
                 grantedAuthorities);
     }

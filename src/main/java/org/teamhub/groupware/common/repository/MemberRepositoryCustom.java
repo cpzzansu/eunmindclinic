@@ -12,9 +12,7 @@ import java.util.Optional;
 
 public interface MemberRepositoryCustom {
 
-    Optional<MemberDto> findByIdAndEmail(String id, String email);
-
-    List<MemberDto> findByGroupId(String groupId);
+    Optional<MemberDto> findByUsernameAndEmail(String username, String email);
 
     Page<MemberDto> searchMembers(MemberSearchCondition memberSearchCondition, Pageable pageable);
 }

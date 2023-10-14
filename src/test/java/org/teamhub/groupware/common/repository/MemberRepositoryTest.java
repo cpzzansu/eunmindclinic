@@ -11,6 +11,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.teamhub.groupware.common.entity.Member;
+import org.teamhub.groupware.common.entity.Role;
+import org.teamhub.groupware.common.entity.Status;
 import org.teamhub.groupware.common.mapper.MemberMapper;
 import org.teamhub.groupware.common.payload.MemberDto;
 import org.teamhub.groupware.common.payload.MemberSearchCondition;
@@ -32,19 +34,16 @@ public class MemberRepositoryTest {
     @BeforeEach
     public void setup() {
         MemberDto memberDto = MemberDto.builder()
-                .id("admin")
-                .groupId("")
-                .refId("")
-                .country("미국")
+                .id(1L)
+                .username("admin")
                 .password("password")
-                .passwordIO("passwordIO")
-                .company("123")
                 .name("이규노")
                 .email("ctccts22@gmail.com")
                 .tel("010-1111-1111")
                 .hp("02-111-1111")
-                .level(1)
-                .status(99)
+                .role(Role.ADMIN)
+                .status(Status.APPROVED)
+                .createdBy(null)
                 .rdate(LocalDateTime.now())
                 .ldate(LocalDateTime.now())
                 .build();

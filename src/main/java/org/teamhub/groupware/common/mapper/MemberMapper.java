@@ -9,18 +9,15 @@ public class MemberMapper {
     public static MemberDto toDto(Member member) {
         MemberDto.MemberDtoBuilder builder = MemberDto.builder()
                 .id(member.getId())
-                .groupId(member.getGroupId())
-                .refId(member.getRefId())
-                .country(member.getCountry())
+                .username(member.getUsername())
                 .password(member.getPassword())
-                .passwordIO(member.getPasswordIO())
-                .company(member.getCompany())
                 .name(member.getName())
                 .email(member.getEmail())
                 .tel(member.getTel())
                 .hp(member.getHp())
-                .level(member.getLevel())
+                .role(member.getRole())
                 .status(member.getStatus())
+                .createdBy(member.getCreatedBy())
                 .rdate(member.getRdate())
                 .ldate(member.getLdate());
 
@@ -31,18 +28,15 @@ public class MemberMapper {
     public static Member toEntity(MemberDto memberDto) {
         Member.MemberBuilder builder = Member.builder()
                 .id(memberDto.getId())
-                .groupId(memberDto.getGroupId())
-                .refId(memberDto.getRefId())
-                .country(memberDto.getCountry())
+                .username(memberDto.getUsername())
                 .password(memberDto.getPassword())
-                .passwordIO(memberDto.getPasswordIO())
-                .company(memberDto.getCompany())
                 .name(memberDto.getName())
                 .email(memberDto.getEmail())
                 .tel(memberDto.getTel())
                 .hp(memberDto.getHp())
-                .level(memberDto.getLevel())
+                .role(memberDto.getRole())
                 .status(memberDto.getStatus())
+                .createdBy(memberDto.getCreatedBy())
                 .rdate(memberDto.getRdate())
                 .ldate(memberDto.getLdate());
 

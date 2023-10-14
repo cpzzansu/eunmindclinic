@@ -31,13 +31,13 @@ public class JwtTokenProvider {
     @Autowired
     private RefreshTokenRepository refreshTokenRepository;
 
-    public String generateRefreshToken(String id) {
+    public String generateRefreshToken(String username) {
         String refreshToken = UUID.randomUUID().toString().replace("-", "");
 
         Date currentDate = new Date();
         Date expiryDate = new Date(currentDate.getTime() + jwtExpirationDate); // adjust as needed
 
-        RefreshToken token = new RefreshToken(refreshToken, id, expiryDate);
+        RefreshToken token = new RefreshToken(refreshToken, username, expiryDate);
         try {
             refreshTokenRepository.save(token);
             // Log for successful save:
@@ -73,14 +73,14 @@ public class JwtTokenProvider {
 
     // generate JWT token
     public String generateToken(Authentication authentication) {
-        String id = authentication.getName();
+        String username = authentication.getName();
 
         Date currentDate = new Date();
 
         Date expireDate = new Date(currentDate.getTime() + jwtExpirationDate);
 
         String token = Jwts.builder()
-                .setSubject(id)
+                .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(expireDate)
                 .signWith(key())
@@ -96,7 +96,7 @@ public class JwtTokenProvider {
     }
 
     // get username from Jwt token
-    public String getId(String token) {
+    public String getUsername(String token) {
 
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key())
@@ -104,9 +104,9 @@ public class JwtTokenProvider {
                 .parseClaimsJws(token)
                 .getBody();
 
-        String id = claims.getSubject();
+        String username = claims.getSubject();
 
-        return id;
+        return username;
     }
 
     // validate Jwt token

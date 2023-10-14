@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.teamhub.groupware.common.entity.Member;
+import org.teamhub.groupware.common.entity.Status;
 import org.teamhub.groupware.common.payload.MemberDto;
 import org.teamhub.groupware.common.payload.MemberSearchCondition;
 import org.teamhub.groupware.common.payload.QMemberDto;
@@ -29,39 +30,25 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
     }
 
     @Override
-    public Optional<MemberDto> findByIdAndEmail(String id, String email) {
+    public Optional<MemberDto> findByUsernameAndEmail(String username, String email) {
         return Optional.ofNullable(queryFactory
                 .select(new QMemberDto(
                         member.id,
-                        member.groupId,
-                        member.refId,
-                        member.country,
+                        member.username,
                         member.password,
-                        member.passwordIO,
-                        member.company,
                         member.name,
                         member.email,
                         member.tel,
                         member.hp,
-                        member.level,
+                        member.role,
                         member.status,
+                        member.createdBy,
                         member.rdate,
                         member.ldate
                 ))
                 .from(member)
-                        .where(member.id.eq(id).or(member.email.eq(email)))
+                .where(member.username.eq(username).or(member.email.eq(email)))
                 .fetchOne());
-    }
-
-    @Override
-    public List<MemberDto> findByGroupId(String groupId) {
-        return queryFactory
-                .select(new QMemberDto(
-                        member.groupId
-                ))
-                .from(member)
-                .where(member.groupId.eq(groupId))
-                .fetch();
     }
 
     @Override
@@ -71,18 +58,15 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
         List<MemberDto> content = queryFactory
                 .select(new QMemberDto(
                         member.id,
-                        member.groupId,
-                        member.refId,
-                        member.country,
+                        member.username,
                         member.password,
-                        member.passwordIO,
-                        member.company,
                         member.name,
                         member.email,
                         member.tel,
                         member.hp,
-                        member.level,
+                        member.role,
                         member.status,
+                        member.createdBy,
                         member.rdate,
                         member.ldate
                 ))
@@ -103,12 +87,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
     private BooleanExpression buildPredicate(MemberSearchCondition condition) {
         BooleanExpression baseCondition = null;
 
-        if (hasText(condition.getCompany())) {
-            baseCondition = companyEq(condition.getCompany())
-                    .or(nameEq(condition.getName()))
-                    .or(telEq(condition.getTel())
-                            .or(hpEq(condition.getHp())));
-        } else if (hasText(condition.getName())) {
+        if (hasText(condition.getName())) {
             baseCondition = nameEq(condition.getName())
                     .or(telEq(condition.getTel())
                             .or(hpEq(condition.getHp())));
@@ -128,10 +107,6 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
         return baseCondition;
     }
 
-
-    private BooleanExpression companyEq(String company) {
-        return hasText(company) ? member.company.contains(company) : null;
-    }
     private BooleanExpression nameEq(String name) {
         return hasText(name) ? member.name.contains(name) : null;
     }
@@ -144,7 +119,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
         return hasText(hp) ? member.hp.contains(hp) : null;
     }
 
-    private BooleanExpression statusEq(Integer status) {
+    private BooleanExpression statusEq(Status status) {
         return status != null ? member.status.eq(status) : null;
     }
 

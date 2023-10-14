@@ -19,7 +19,7 @@ public class RefreshToken {
     @Id
     private String token;
 
-    private String id;
+    private String username;
 
     private Date expiryDate;
 }
