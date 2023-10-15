@@ -1,6 +1,10 @@
 package org.teamhub.groupware.common.payload;
 
 import com.querydsl.core.annotations.QueryProjection;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Data;
 import org.teamhub.groupware.common.entity.Role;
@@ -11,10 +15,15 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 public class MemberDto {
+
+    @NotBlank
     private Long id;
+    @NotEmpty
     private String username;
+    @NotEmpty
     private String password;
     private String name;
+    @NotEmpty
     private String email;
     private String tel;
     private String hp;

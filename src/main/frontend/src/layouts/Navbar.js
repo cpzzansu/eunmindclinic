@@ -1,10 +1,11 @@
 import React from "react";
 import 'bootstrap/js/dist/dropdown'
 import 'bootstrap/js/dist/collapse'
+import './Navbar.css'
 const Navbar = ({toggleHandler}) => {
   return(
       <nav className="navbar navbar-expand-sm navbar-dark bg-transparent">
-        <i className="navbar-brand bi bi-justify-left fs-4" onClick={toggleHandler}></i>
+        <i className="navbar-brand bi bi-justify-left fs-4 cursor-pointer" onClick={toggleHandler}></i>
         <button className="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
                 aria-expanded="false" aria-label="Toggle navigation"><i className='bi bi-justify'></i></button>
         <div className="collapse navbar-collapse" id="collapsibleNavId">
