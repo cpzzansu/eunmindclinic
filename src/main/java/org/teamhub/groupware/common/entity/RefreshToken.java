@@ -22,5 +22,6 @@ public class RefreshToken {
     private String username;
 
     private Date expiryDate;
+
 }
 

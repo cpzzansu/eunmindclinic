@@ -21,11 +21,13 @@ public class MemberDto {
     private Role role;
     private Status status;
     private String createdBy;
+    private String department;
+    private String position;
     private LocalDateTime rdate;
     private LocalDateTime ldate;
 
     @QueryProjection
-    public MemberDto(Long id, String username, String password, String name, String email, String tel, String hp, Role role, Status status, String createdBy, LocalDateTime rdate, LocalDateTime ldate) {
+    public MemberDto(Long id, String username, String password, String name, String email, String tel, String hp, Role role, Status status, String createdBy, String department, String position, LocalDateTime rdate, LocalDateTime ldate) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -36,6 +38,8 @@ public class MemberDto {
         this.role = role;
         this.status = status;
         this.createdBy = createdBy;
+        this.department = department;
+        this.position = position;
         this.rdate = rdate;
         this.ldate = ldate;
     }

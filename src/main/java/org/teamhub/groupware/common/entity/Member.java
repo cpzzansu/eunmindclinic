@@ -17,7 +17,7 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username", nullable = false, length = 30)
+    @Column(name = "username", nullable = false, length = 30, unique = true)
     private String username;
 
     @Column(name = "password", nullable = false, length = 1000)
@@ -26,7 +26,7 @@ public class Member {
     @Column(name = "name", nullable = true, length = 45)
     private String name;
 
-    @Column(name = "email", nullable = true, length = 100)
+    @Column(name = "email", nullable = true, length = 100, unique = true)
     private String email;
 
     @Column(name = "tel", nullable = true, length = 45)
@@ -45,6 +45,12 @@ public class Member {
 
     @Column(name = "created_by", nullable = true, length = 30)
     private String createdBy;
+
+    @Column(name = "department", nullable = true, length = 30)
+    private String department;
+
+    @Column(name = "position", nullable = true, length = 10)
+    private String position;
 
     @Column(name = "rdate", nullable = true)
     private LocalDateTime rdate;

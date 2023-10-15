@@ -43,6 +43,8 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
                         member.role,
                         member.status,
                         member.createdBy,
+                        member.department,
+                        member.position,
                         member.rdate,
                         member.ldate
                 ))
@@ -67,6 +69,8 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
                         member.role,
                         member.status,
                         member.createdBy,
+                        member.department,
+                        member.position,
                         member.rdate,
                         member.ldate
                 ))

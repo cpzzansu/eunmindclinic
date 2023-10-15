@@ -44,6 +44,8 @@ public class MemberRepositoryTest {
                 .role(Role.ADMIN)
                 .status(Status.APPROVED)
                 .createdBy(null)
+                .department("마케팅")
+                .position("대리")
                 .rdate(LocalDateTime.now())
                 .ldate(LocalDateTime.now())
                 .build();
