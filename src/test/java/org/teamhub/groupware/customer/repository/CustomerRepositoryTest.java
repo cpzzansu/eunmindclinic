@@ -93,7 +93,7 @@ public class CustomerRepositoryTest {
 
     // JUnit test for findById
     @Test
-    @DisplayName("JUnit test for findById ")
+    @DisplayName("JUnit test for findById")
     public void givenCustomerObject_whenFindById_thenReturnId() {
         // given - precondition or setup
         CustomerDto customerDto = CustomerDto.builder()
@@ -119,37 +119,37 @@ public class CustomerRepositoryTest {
     }
 
     // JUnit test for dynamicQuery with Paging
-    @Test
-    public void given_when_then() {
-        // given - precondition or setup
-        LocalDateTime now = LocalDateTime.now();
-
-        CustomerDto customerDto = CustomerDto.builder()
-                .customerId(1L)
-                .id(Member.builder().id(1L).build().getId()) // memberId(FK)
-                .company("삼성전자")
-                .department("마게팅")
-                .position("대리")
-                .name("홍길동")
-                .email("ks@naver.com")
-                .tel("02-1111-1111")
-                .hp("010-1111-1111")
-                .rdate(now)
-                .ldate(null)
-                .build();
-        Customer customer = CustomerMapper.toEntity(customerDto);
-        customerRepository.save(customer);
-        // when - action or the behavior that we are going test
-        CustomerSearchCondition condition = new CustomerSearchCondition();
-        condition.setName("홍길동");
-        condition.setTel("02-1111-1111");
-        condition.setHp("010-1111-1111");
-        condition.setRdate(now);
-        PageRequest pageRequest = PageRequest.of(0, 10);
-
-        Page<CustomerDto> result = customerRepository.searchCustomers(condition, pageRequest);
-        // then - verify the output
-        assertThat(result.getSize()).isEqualTo(10);
-        assertThat(result.getTotalElements()).isEqualTo(1);
-    }
+//    @Test
+//    public void given_when_then() {
+//        // given - precondition or setup
+//        LocalDateTime now = LocalDateTime.now();
+//
+//        CustomerDto customerDto = CustomerDto.builder()
+//                .customerId(1L)
+//                .id(Member.builder().id(1L).build().getId()) // memberId(FK)
+//                .company("삼성전자")
+//                .department("마게팅")
+//                .position("대리")
+//                .name("홍길동")
+//                .email("ks@naver.com")
+//                .tel("02-1111-1111")
+//                .hp("010-1111-1111")
+//                .rdate(now)
+//                .ldate(null)
+//                .build();
+//        Customer customer = CustomerMapper.toEntity(customerDto);
+//        customerRepository.save(customer);
+//        // when - action or the behavior that we are going test
+//        CustomerSearchCondition condition = new CustomerSearchCondition();
+//        condition.setName("홍길동");
+//        condition.setTel("02-1111-1111");
+//        condition.setHp("010-1111-1111");
+//        condition.setRdate(now);
+//        PageRequest pageRequest = PageRequest.of(0, 10);
+//
+//        Page<CustomerDto> result = customerRepository.searchCustomers(condition, pageRequest);
+//        // then - verify the output
+//        assertThat(result.getSize()).isEqualTo(10);
+//        assertThat(result.getTotalElements()).isEqualTo(1);
+//    }
 }

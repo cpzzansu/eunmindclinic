@@ -67,9 +67,9 @@ public class MemberRepositoryTest {
         PageRequest pageRequest = PageRequest.of(0, 10);
         // when
         Page<MemberDto> result = memberRepository.searchMembers(condition, pageRequest);
-
+        // then
         assertThat(result.getSize()).isEqualTo(10);
         assertThat(result.getTotalElements()).isEqualTo(1);
-
     }
+
 }
