@@ -35,13 +35,11 @@ export default {
   margin-top: 450px;
 }
 .main-banner-english {
-  font-family: "Noto Sans KR";
   font-weight: 700;
   font-size: 25px;
   color: #ffffff;
 }
 .main-banner-sentence {
-  font-family: "Noto Sans KR";
   font-weight: 700;
   font-size: 44px;
   color: #ffffff;

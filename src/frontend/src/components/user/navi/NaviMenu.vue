@@ -2,7 +2,7 @@
 <script></script>
 <style scoped>
 .navi-menu {
-  font-family: "Noto Sans KR";
+  font-family: "Noto Sans KR","Apple SD Gothic Neo", sans-serif;
   font-size: 18px;
   font-weight: 500;
   margin-left: auto;

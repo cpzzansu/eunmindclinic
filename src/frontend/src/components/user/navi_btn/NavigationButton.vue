@@ -30,7 +30,6 @@ export default {
   width: 280px;
 }
 .nav-btn-text {
-  font-family: "Noto Sans KR";
   font-weight: 700;
   font-size: 36px;
   color: #333333;
@@ -44,7 +43,6 @@ export default {
   color: #ffffff;
   font-size: 16px;
   font-weight: 700;
-  font-family: "Noto Sans KR";
   margin-top: 10px;
   margin-bottom: 80px;
 }

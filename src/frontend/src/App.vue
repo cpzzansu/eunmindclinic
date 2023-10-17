@@ -21,3 +21,8 @@ export default {
   }
 }
 </script>
+<style>
+body {
+  font-family: "Noto Sans KR","Apple SD Gothic Neo", sans-serif ;
+}
+</style>
