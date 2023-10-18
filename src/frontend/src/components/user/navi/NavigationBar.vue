@@ -1,7 +1,7 @@
 <template>
   <div class="row justify-center">
     <div class="navigation-bar-div col-md-8 row">
-      <img class="nav-logo" src="../../../asset/big.png" />
+      <img class="nav-logo" src="/images/big.png" />
       <navi-menu></navi-menu>
       <navi-menu></navi-menu>
       <navi-menu></navi-menu>

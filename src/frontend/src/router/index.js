@@ -1,41 +1,44 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Login from '@/components/OauthLogin.vue'
+import { createRouter, createWebHistory } from "vue-router";
+import Login from "@/components/OauthLogin.vue";
 import Home from "@/components/user/views/Home.vue";
 import UserLogin from "@/components/UserLogin.vue";
 import AdminManagement from "@/components/admin/AdminManagement.vue";
+import Greeting from "@/components/user/views/Greeting.vue";
+import ClinicalDepartments from "@/components/user/views/ClinicalDepartments.vue";
+import ClinicHours from "@/components/user/views/ClinicHours.vue";
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: "/",
+    name: "Home",
+    component: Home,
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: Login
+    path: "/greeting",
+    name: "Greeting",
+    component: Greeting,
   },
   {
-    path: '/home',
-    name: Home,
-    component: Home
+    path: "/clinicalDepartments",
+    name: "ClinicalDepartments",
+    component: ClinicalDepartments,
   },
   {
-    path: '/userLogin',
-    name: UserLogin,
-    component: UserLogin
+    path: "/clinicHours",
+    name: "ClinicHours",
+    component: ClinicHours,
   },
   {
-    path: '/adminManagement',
+    path: "/adminManagement",
     name: AdminManagement,
-    component: AdminManagement
-  }
+    component: AdminManagement,
+  },
   // ... other routes if any
-]
+];
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
