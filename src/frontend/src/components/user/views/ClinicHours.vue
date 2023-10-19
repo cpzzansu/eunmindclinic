@@ -10,7 +10,7 @@
     </div>
     <div class="main-content">
       <div class="clinic-hours-div row justify-center">
-        <div class="col-10 col-md-8 row items-center">
+        <div class="first-clinic-hours col-10 col-md-8 row items-center">
           <img src="/images/clock.png" />
           <div class="clinic-hours-time row justify-between col q-col-grow">
             <div class="clinic-hours-title">진료시간<br />안내</div>
@@ -38,6 +38,15 @@
             </div>
           </div>
         </div>
+        <ClinicHoursTable></ClinicHoursTable>
+        <div class="row justify-center clinic-phone-div col-10 col-md-8">
+          <img src="images/phone.png" style="width: 350px; margin: 10px 10px" />
+          <img src="images/fax.png" style="width: 350px; margin: 10px 10px" />
+          <img
+            src="images/reservation.png"
+            style="width: 350px; margin: 0px 10px"
+          />
+        </div>
       </div>
     </div>
     <FooterDiv></FooterDiv>
@@ -51,9 +60,11 @@ import NavigationBar from "@/components/user/navi/NavigationBar.vue";
 import DepartmentName from "@/components/user/clinical_departments/DepartmentName.vue";
 import ClinicDetail from "@/components/user/clinical_departments/ClinicDetail.vue";
 import ClinicDetailBox from "@/components/user/clinical_departments/ClinicDetailBox.vue";
+import ClinicHoursTable from "@/components/user/clinic_hours/ClinicHoursTable.vue";
 
 export default defineComponent({
   components: {
+    ClinicHoursTable,
     ClinicDetailBox,
     ClinicDetail,
     DepartmentName,
@@ -95,8 +106,6 @@ export default defineComponent({
   width: 1px;
   background-color: #154726;
 }
-.clinic-hours-time {
-}
 .clinic-hours-bold-text {
   font-size: 23px;
   font-weight: 700;
@@ -113,7 +122,13 @@ export default defineComponent({
   margin-left: 25px;
   color: #154726;
 }
-
+.first-clinic-hours {
+  margin-bottom: 80px;
+}
+.clinic-phone-div {
+  margin-top: 80px;
+  margin-bottom: 180px;
+}
 @media (max-width: 1440px) {
   .clinic-hours-div {
     margin-top: 130px;

@@ -1,14 +1,16 @@
 <template>
   <div class="row justify-center">
     <div class="navigation-bar-div col-md-8 row">
-      <img class="nav-logo" src="/images/big.png" />
-      <navi-menu></navi-menu>
-      <navi-menu></navi-menu>
-      <navi-menu></navi-menu>
-      <navi-menu></navi-menu>
-      <navi-menu></navi-menu>
-      <navi-menu></navi-menu>
-      <navi-menu></navi-menu>
+      <RouterLink class="menu-link" to="/"
+        ><img class="nav-logo" src="/images/big.png"
+      /></RouterLink>
+      <navi-menu linkTo="/greeting" menu="인사말"></navi-menu>
+      <navi-menu linkTo="/clinicalDepartments" menu="진료과목"></navi-menu>
+      <navi-menu linkTo="/clinicHours" menu="진료시간"></navi-menu>
+      <navi-menu linkTo="/doctorProfile" menu="의료진 소개"></navi-menu>
+      <navi-menu linkTo="/clinicHours" menu="갤러리"></navi-menu>
+      <navi-menu linkTo="/clinicHours" menu="공지사항"></navi-menu>
+      <navi-menu linkTo="/clinicHours" menu="오시는 길"></navi-menu>
     </div>
   </div>
 </template>

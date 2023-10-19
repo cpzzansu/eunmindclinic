@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Login from "@/components/OauthLogin.vue";
 import Home from "@/components/user/views/Home.vue";
-import UserLogin from "@/components/UserLogin.vue";
-import AdminManagement from "@/components/admin/AdminManagement.vue";
 import Greeting from "@/components/user/views/Greeting.vue";
 import ClinicalDepartments from "@/components/user/views/ClinicalDepartments.vue";
 import ClinicHours from "@/components/user/views/ClinicHours.vue";
+import DoctorProfile from "@/components/user/views/DoctorProfile.vue";
+import AcademicActivities from "@/components/user/doctor_profile/AcademicActivities.vue";
+import AcademicPublication from "@/components/user/doctor_profile/AcademicPublication.vue";
+import OverseasPresentation from "@/components/user/doctor_profile/OverseasPresentation.vue";
 
 const routes = [
   {
@@ -29,9 +30,28 @@ const routes = [
     component: ClinicHours,
   },
   {
-    path: "/adminManagement",
-    name: AdminManagement,
-    component: AdminManagement,
+    path: "/doctorProfile",
+    name: "DoctorProfile",
+    component: DoctorProfile,
+    children: [
+      {
+        path: "academicActivities",
+        name: "AcademicActivities",
+        component: AcademicActivities,
+      },
+      {
+        path: "academicPublication",
+        name: "AcademicPublication",
+        component: AcademicPublication,
+        children: [
+          {
+            path: "overseasPresentation",
+            name: "OverseasPresentation",
+            component: OverseasPresentation,
+          },
+        ],
+      },
+    ],
   },
   // ... other routes if any
 ];
