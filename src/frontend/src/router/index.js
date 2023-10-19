@@ -7,6 +7,8 @@ import DoctorProfile from "@/components/user/views/DoctorProfile.vue";
 import AcademicActivities from "@/components/user/doctor_profile/AcademicActivities.vue";
 import AcademicPublication from "@/components/user/doctor_profile/AcademicPublication.vue";
 import OverseasPresentation from "@/components/user/doctor_profile/OverseasPresentation.vue";
+import MasterOfBusinessAdministration from "@/components/user/doctor_profile/MasterOfBusinessAdministration.vue";
+import PublishedWorks from "@/components/user/doctor_profile/PublishedWorks.vue";
 
 const routes = [
   {
@@ -49,6 +51,16 @@ const routes = [
             name: "OverseasPresentation",
             component: OverseasPresentation,
           },
+          {
+            path: "mba",
+            name: "masterOfBusinessAdministration",
+            component: MasterOfBusinessAdministration,
+          },
+          {
+            path: "pubs",
+            name: "publishedWorks",
+            component: PublishedWorks,
+          }
         ],
       },
     ],

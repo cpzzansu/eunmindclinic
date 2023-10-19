@@ -2,13 +2,13 @@
   <div class="col-10 col-md-8 activities-div">
     <div class="q-pa-md activities-table">
       <q-table
-        :columns="columns"
-        :pagination="myInitialPagination"
-        :rows="rows"
-        :rows-per-page-options="[0]"
-        hide-header
-        hide-pagination
-        row-key="id"
+          :columns="columns"
+          :pagination="myInitialPagination"
+          :rows="rows"
+          :rows-per-page-options="[0]"
+          hide-header
+          hide-pagination
+          row-key="id"
       />
     </div>
   </div>
@@ -33,7 +33,7 @@ const columns = [
 ];
 
 const rows = [
-  { id: 1, description: "대한의사협회(KMA) 정회원" },
+  { id: 1, description: "출판 정회원" },
   { id: 2, description: "대한의사협회(KMA) 정회원" },
   { id: 3, description: "대한의사협회(KMA) 정회원" },
 ];

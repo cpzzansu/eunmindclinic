@@ -1,45 +1,62 @@
 <template>
-  <div class="col-10 col-md-8 row publication-btn-div">
-    <RouterLink class="menu-link col-3" to="/doctorProfile/academicPublication"
-      ><div class="publication-btn row justify-center items-center">
-        의학
-      </div></RouterLink
-    >
-    <RouterLink
-      class="menu-link col-3"
-      to="/doctorProfile/academicPublication/overseasPresentation"
-    >
-      <div class="publication-btn col-3 row justify-center items-center">
-        해외학회 논문 발표
-      </div></RouterLink
-    >
-    <div class="publication-btn col-3 row justify-center items-center">
-      경 영 학
+  <div class="col-10 col-md-8">
+    <div class="row publication-btn-div">
+      <RouterLink class="menu-link col-3" to="/doctorProfile/academicPublication"
+        ><div class="publication-btn row justify-center items-center">
+          의학
+        </div></RouterLink
+      >
+      <RouterLink
+        class="menu-link col-3"
+        to="/doctorProfile/academicPublication/overseasPresentation"
+      >
+        <div class="publication-btn col-3 row justify-center items-center">
+          해외학회 논문 발표
+        </div></RouterLink
+      >
+      <RouterLink
+          class="menu-link col-3"
+          to="/doctorProfile/academicPublication/mba"
+      >
+        <div class="publication-btn col-3 row justify-center items-center">
+          경 영 학
+        </div>
+      </RouterLink>
+      <RouterLink
+          class="menu-link col-3"
+          to="/doctorProfile/academicPublication/pubs"
+      >
+        <div class="publication-btn col-3 row justify-center items-center">
+          저 술
+        </div>
+      </RouterLink>
     </div>
-    <div class="publication-btn col-3 row justify-center items-center">
-      저 술
+    <div v-if="!hasChildRoute" class="col-10 col-md-8 activities-div">
+      <div class="q-pa-md activities-table">
+        <q-table
+          :columns="columns"
+          :pagination="myInitialPagination"
+          :rows="rows"
+          :rows-per-page-options="[0]"
+          hide-header
+          hide-pagination
+          row-key="id"
+        />
+      </div>
     </div>
-  </div>
-  <div class="col-10 col-md-8 activities-div">
-    <div class="q-pa-md activities-table">
-      <q-table
-        :columns="columns"
-        :pagination="myInitialPagination"
-        :rows="rows"
-        :rows-per-page-options="[0]"
-        hide-header
-        hide-pagination
-        row-key="id"
-      />
-    </div>
+    <RouterView></RouterView>
   </div>
 </template>
 <script>
-import { defineComponent } from "vue";
+import {computed, defineComponent} from "vue";
 import FooterDiv from "@/components/user/footer/FooterDiv.vue";
 import NavigationButtonDiv from "@/components/user/navi_btn/NavigationButtonDiv.vue";
 import NavigationBar from "@/components/user/navi/NavigationBar.vue";
 import DoctorProfileNavigation from "@/components/user/doctor_profile/DoctorProfileNavigation.vue";
+import { useRoute } from "vue-router";
+
+
+
 const columns = [
   {
     name: "idx",
@@ -69,12 +86,18 @@ export default defineComponent({
     FooterDiv,
   },
   setup() {
+    const route = useRoute();
+
+    const hasChildRoute = computed(() => {
+      return route.path !== "/doctorProfile/academicPublication";
+    });
     return {
       columns,
       rows,
       myInitialPagination: {
         rowsPerPage: 0,
       },
+      hasChildRoute,
     };
   },
 });

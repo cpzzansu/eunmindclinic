@@ -11,7 +11,7 @@
     <div class="main-content">
       <div class="clinic-hours-div row justify-center">
         <div class="first-clinic-hours col-10 col-md-8 row items-center">
-          <img src="/images/clock.png" />
+          <img class="clock-img" src="/images/clock.png" />
           <div class="clinic-hours-time row justify-between col q-col-grow">
             <div class="clinic-hours-title">진료시간<br />안내</div>
             <div class="clinic-hours-line"></div>
@@ -98,8 +98,6 @@ export default defineComponent({
 .clinic-hours-title {
   font-weight: 700;
   font-size: 35px;
-  margin-left: 50px;
-
   color: #154726;
 }
 .clinic-hours-line {
@@ -111,7 +109,6 @@ export default defineComponent({
   font-weight: 700;
   margin-top: 5px;
   margin-bottom: 5px;
-  margin-left: 37px;
   color: #154726;
 }
 .clinic-hours-medium-text {
@@ -128,6 +125,12 @@ export default defineComponent({
 .clinic-phone-div {
   margin-top: 80px;
   margin-bottom: 180px;
+}
+.clinic-hours-time-div{
+  padding: 16px 0px;
+}
+.clock-img{
+  margin-right: 50px;
 }
 @media (max-width: 1440px) {
   .clinic-hours-div {
