@@ -8,9 +8,9 @@
       <navi-menu linkTo="/clinicalDepartments" menu="진료과목"></navi-menu>
       <navi-menu linkTo="/clinicHours" menu="진료시간"></navi-menu>
       <navi-menu linkTo="/doctorProfile" menu="의료진 소개"></navi-menu>
-      <navi-menu linkTo="/clinicHours" menu="갤러리"></navi-menu>
-      <navi-menu linkTo="/clinicHours" menu="공지사항"></navi-menu>
-      <navi-menu linkTo="/clinicHours" menu="오시는 길"></navi-menu>
+      <navi-menu linkTo="/gallery" menu="갤러리"></navi-menu>
+      <navi-menu linkTo="/notice" menu="공지사항"></navi-menu>
+      <navi-menu linkTo="/directions" menu="오시는 길"></navi-menu>
     </div>
   </div>
 </template>

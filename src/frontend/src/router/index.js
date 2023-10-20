@@ -9,6 +9,10 @@ import AcademicPublication from "@/components/user/doctor_profile/AcademicPublic
 import OverseasPresentation from "@/components/user/doctor_profile/OverseasPresentation.vue";
 import MasterOfBusinessAdministration from "@/components/user/doctor_profile/MasterOfBusinessAdministration.vue";
 import PublishedWorks from "@/components/user/doctor_profile/PublishedWorks.vue";
+import Gallery from "@/components/user/views/Gallery.vue";
+import Notice from "@/components/user/views/Notice.vue";
+import Detail from "@/components/user/notice/Detail.vue";
+import Directions from "@/components/user/views/Directions.vue";
 
 const routes = [
   {
@@ -60,11 +64,15 @@ const routes = [
             path: "pubs",
             name: "publishedWorks",
             component: PublishedWorks,
-          }
+          },
         ],
       },
     ],
   },
+  { path: "/gallery", name: "Gallery", component: Gallery },
+  { path: "/notice", name: "Notice", component: Notice },
+  { path: "/detail", name: "detail", component: Detail },
+  { path: "/directions", name: "directions", component: Directions },
   // ... other routes if any
 ];
 

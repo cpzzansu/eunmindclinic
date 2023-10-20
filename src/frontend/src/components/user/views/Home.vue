@@ -46,7 +46,7 @@ export default {
   margin-bottom: 27px;
 }
 .main-banner-div {
-  background-image: url("../../../../public/images/main-banner.png");
+  background-image: url("/images/main-banner.png");
   background-position: center;
   background-size: cover;
   height: 800px;

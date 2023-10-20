@@ -44,7 +44,7 @@
           <img src="images/fax.png" style="width: 350px; margin: 10px 10px" />
           <img
             src="images/reservation.png"
-            style="width: 350px; margin: 0px 10px"
+            style="width: 350px; margin: 10px 10px"
           />
         </div>
       </div>
@@ -126,10 +126,10 @@ export default defineComponent({
   margin-top: 80px;
   margin-bottom: 180px;
 }
-.clinic-hours-time-div{
+.clinic-hours-time-div {
   padding: 16px 0px;
 }
-.clock-img{
+.clock-img {
   margin-right: 50px;
 }
 @media (max-width: 1440px) {

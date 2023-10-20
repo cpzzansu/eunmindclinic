@@ -1,21 +1,29 @@
 <template>
   <div class="navi-btn-div row justify-center">
-    <NavigationButton
-      :image-src="'/images/clinical_specialty.png'"
-      :navigationButtonTitle="'진료과목'"
-    ></NavigationButton>
-    <NavigationButton
-      :image-src="'/images/clinic-time.png'"
-      :navigationButtonTitle="'진료시간'"
-    ></NavigationButton>
-    <NavigationButton
-      :image-src="'/images/doctors.png'"
-      :navigationButtonTitle="'의료진 소개'"
-    ></NavigationButton>
-    <NavigationButton
-      :image-src="'/images/come-us.png'"
-      :navigationButtonTitle="'오시는 길'"
-    ></NavigationButton>
+    <router-link class="link-menu" to="/clinicalDepartments">
+      <NavigationButton
+        :image-src="'/images/clinical_specialty.png'"
+        :navigationButtonTitle="'진료과목'"
+      ></NavigationButton>
+    </router-link>
+    <router-link class="link-menu" to="/clinicalDepartments">
+      <NavigationButton
+        :image-src="'/images/clinic-time.png'"
+        :navigationButtonTitle="'진료시간'"
+      ></NavigationButton>
+    </router-link>
+    <router-link class="link-menu" to="/clinicHours">
+      <NavigationButton
+        :image-src="'/images/doctors.png'"
+        :navigationButtonTitle="'의료진 소개'"
+      ></NavigationButton>
+    </router-link>
+    <router-link class="link-menu" to="/directions">
+      <NavigationButton
+        :image-src="'/images/come-us.png'"
+        :navigationButtonTitle="'오시는 길'"
+      ></NavigationButton>
+    </router-link>
   </div>
 </template>
 <script>
@@ -29,5 +37,8 @@ export default defineComponent({
 <style scoped>
 .navi-btn-div {
   margin-top: 80px;
+}
+.link-menu {
+  text-decoration: none;
 }
 </style>
