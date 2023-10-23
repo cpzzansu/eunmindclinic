@@ -1,6 +1,6 @@
 <template>
   <div class="col-10 col-md-8 activities-div">
-    <div class="q-pa-md activities-table">
+    <div class="q-pa-md activities-table" id="mba">
       <q-table
           :columns="columns"
           :pagination="myInitialPagination"
@@ -91,9 +91,10 @@ export default defineComponent({
   padding: 0px 0px 0px 20px;
 }
 .activities-table .q-table td:first-child {
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 400;
   padding-left: 0px;
+  color: #333333;
 }
 
 </style>

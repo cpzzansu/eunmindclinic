@@ -2,31 +2,31 @@
   <div class="col-10 col-md-8">
     <div class="row publication-btn-div">
       <RouterLink class="menu-link col-3" to="/doctorProfile/academicPublication"
-        ><div class="publication-btn row justify-center items-center">
+        ><div class="publication-btn row justify-center items-center" :class="{'active-link': $route.path === '/doctorProfile/academicPublication'}">
           의학
         </div></RouterLink
       >
       <RouterLink
         class="menu-link col-3"
-        to="/doctorProfile/academicPublication/overseasPresentation"
+        to="/doctorProfile/academicPublication/overseasPresentation" v-slot="{isActive}"
       >
-        <div class="publication-btn col-3 row justify-center items-center">
+        <div class="publication-btn col-3 row justify-center items-center" :class="{'active-link': isActive}">
           해외학회 논문 발표
         </div></RouterLink
       >
       <RouterLink
           class="menu-link col-3"
-          to="/doctorProfile/academicPublication/mba"
+          to="/doctorProfile/academicPublication/mba" v-slot="{isActive}"
       >
-        <div class="publication-btn col-3 row justify-center items-center">
+        <div class="publication-btn col-3 row justify-center items-center" :class="{'active-link': isActive}">
           경 영 학
         </div>
       </RouterLink>
       <RouterLink
           class="menu-link col-3"
-          to="/doctorProfile/academicPublication/pubs"
+          to="/doctorProfile/academicPublication/pubs" v-slot="{isActive}"
       >
-        <div class="publication-btn col-3 row justify-center items-center">
+        <div class="publication-btn col-3 row justify-center items-center" :class="{'active-link': isActive}">
           저 술
         </div>
       </RouterLink>
@@ -143,6 +143,7 @@ export default defineComponent({
   font-size: 18px;
   font-weight: 700;
   padding-left: 0px;
+  color: #149473;
 }
 .publication-btn {
   height: 46px;
@@ -151,6 +152,10 @@ export default defineComponent({
   background-color: rgba(250, 243, 230, 1);
   color: #333333;
   border-right: 1px rgba(255, 255, 255, 1) solid;
+}
+.active-link.publication-btn{
+  background-color: #149473;
+  color: #ffffff;
 }
 .publication-btn:last-child {
   border-right: none;

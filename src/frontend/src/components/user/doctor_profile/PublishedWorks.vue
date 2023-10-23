@@ -1,6 +1,6 @@
 <template>
   <div class="col-10 col-md-8 activities-div">
-    <div class="q-pa-md activities-table">
+    <div class="q-pa-md activities-table" id="publishWorks">
       <q-table
           :columns="columns"
           :pagination="myInitialPagination"

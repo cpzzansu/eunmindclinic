@@ -124,5 +124,27 @@ export default defineComponent({
   font-size: 18px;
   font-weight: 700;
   padding-left: 0px;
+  color: #149473;
+}
+#overseas .q-table td:first-child {
+  font-size: 16px;
+  font-weight: 400;
+  padding-left: 0px;
+  color: #333333;
+  line-height: 28px;
+}
+#mba .q-table td:first-child {
+  font-size: 16px;
+  font-weight: 400;
+  padding-left: 0px;
+  color: #333333;
+  line-height: 28px;
+}
+#publishWorks .q-table td:first-child {
+  font-size: 16px;
+  font-weight: 400;
+  padding-left: 0px;
+  color: #333333;
+  line-height: 28px;
 }
 </style>
