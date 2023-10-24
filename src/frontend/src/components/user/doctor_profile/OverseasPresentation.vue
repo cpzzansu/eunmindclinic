@@ -1,6 +1,6 @@
 <template>
   <div class="col-10 col-md-8 activities-div">
-    <div class="q-pa-md activities-table" id="overseas">
+    <div id="overseas" class="q-pa-md activities-table">
       <q-table
         :columns="columns"
         :pagination="myInitialPagination"
@@ -9,34 +9,23 @@
         hide-header
         hide-pagination
         row-key="id"
-      />
+      >
+        <template v-slot:body-cell-overseasPresentation="props">
+          <q-td :props="props" style="white-space: pre-line">
+            <span v-html="props.row.overseasPresentation"></span>
+          </q-td>
+        </template>
+      </q-table>
     </div>
   </div>
 </template>
 <script>
-import { defineComponent } from "vue";
+import { computed, defineComponent, onMounted, ref } from "vue";
 import FooterDiv from "@/components/user/footer/FooterDiv.vue";
 import NavigationButtonDiv from "@/components/user/navi_btn/NavigationButtonDiv.vue";
 import NavigationBar from "@/components/user/navi/NavigationBar.vue";
 import DoctorProfileNavigation from "@/components/user/doctor_profile/DoctorProfileNavigation.vue";
-
-
-const columns = [
-  {
-    name: "idx",
-    align: "left",
-    field: (row) => row.description,
-    format: (val) => `${val}`,
-    style: "width: 45px",
-  },
-
-];
-
-const rows = [
-  { id: 1, description: "대한의사협회(KMA) 정회원" },
-  { id: 2, description: "대한의사협회(KMA) 정회원" },
-  { id: 3, description: "대한의사협회(KMA) 정회원" },
-];
+import { useStore } from "vuex";
 
 export default defineComponent({
   components: {
@@ -46,7 +35,26 @@ export default defineComponent({
     FooterDiv,
   },
   setup() {
+    const store = useStore();
+    const overseasPresent = ref([]);
+
+    onMounted(() => {
+      overseasPresent.value = store.state.overseasPresent;
+    });
+
+    const columns = [
+      {
+        name: "overseasPresentation",
+        align: "left",
+        field: (row) => row.overseasPresentation,
+        format: (val) => `${val}`,
+        style: "width: 45px",
+      },
+    ];
+
+    const rows = computed(() => overseasPresent.value);
     return {
+      overseasPresent,
       columns,
       rows,
       myInitialPagination: {
@@ -91,10 +99,10 @@ export default defineComponent({
   padding: 0px 0px 0px 20px;
 }
 #overseas .q-table td:first-child {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   padding-left: 0px;
   color: #333333;
+  line-height: 29px;
 }
-
 </style>

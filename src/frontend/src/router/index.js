@@ -13,6 +13,7 @@ import Gallery from "@/components/user/views/Gallery.vue";
 import Notice from "@/components/user/views/Notice.vue";
 import Detail from "@/components/user/notice/Detail.vue";
 import Directions from "@/components/user/views/Directions.vue";
+import store from "@/store";
 
 const routes = [
   {
@@ -44,21 +45,57 @@ const routes = [
         path: "academicActivities",
         name: "AcademicActivities",
         component: AcademicActivities,
+        beforeEnter: async (to, from, next) => {
+          try {
+            await store.dispatch("fetchActivities");
+            next();
+          } catch (error) {
+            console.log("Error fetching data: ", error);
+            next(false);
+          }
+        },
       },
       {
         path: "academicPublication",
         name: "AcademicPublication",
         component: AcademicPublication,
+        beforeEnter: async (to, from, next) => {
+          try {
+            await store.dispatch("fetchMedical");
+            next();
+          } catch (error) {
+            console.log("Error fetching data: ", error);
+            next(false);
+          }
+        },
         children: [
           {
             path: "overseasPresentation",
             name: "OverseasPresentation",
             component: OverseasPresentation,
+            beforeEnter: async (to, from, next) => {
+              try {
+                await store.dispatch("fetchOverseasPresent");
+                next();
+              } catch (error) {
+                console.log("Error fetching data: ", error);
+                next(false);
+              }
+            },
           },
           {
             path: "mba",
             name: "masterOfBusinessAdministration",
             component: MasterOfBusinessAdministration,
+            beforeEnter: async (to, from, next) => {
+              try {
+                await store.dispatch("fetchMba");
+                next();
+              } catch (error) {
+                console.log("Error fetching data: ", error);
+                next(false);
+              }
+            },
           },
           {
             path: "pubs",
@@ -79,6 +116,10 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach(async (to, from, next) => {
+  next();
 });
 
 export default router;

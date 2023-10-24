@@ -36,7 +36,11 @@ public class SecurityConfig {
             "/favicon.ico",
             "/assets/**",
             "/",
-            "/images/**"
+            "/images/**",
+            "/academicActivities",
+            "/medical",
+            "/overseasPresent",
+            "/mba"
     };
 
     private final UserDetailsService userDetailsService;
