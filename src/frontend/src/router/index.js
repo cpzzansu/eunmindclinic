@@ -101,6 +101,15 @@ const routes = [
             path: "pubs",
             name: "publishedWorks",
             component: PublishedWorks,
+            beforeEnter: async (to, from, next) => {
+              try {
+                await store.dispatch("fetchPubs");
+                next();
+              } catch (error) {
+                console.log("Error fetching data: ", error);
+                next(false);
+              }
+            },
           },
         ],
       },

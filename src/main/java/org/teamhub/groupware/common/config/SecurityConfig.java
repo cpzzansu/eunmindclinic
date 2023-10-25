@@ -40,7 +40,8 @@ public class SecurityConfig {
             "/academicActivities",
             "/medical",
             "/overseasPresent",
-            "/mba"
+            "/mba",
+            "/pubs"
     };
 
     private final UserDetailsService userDetailsService;

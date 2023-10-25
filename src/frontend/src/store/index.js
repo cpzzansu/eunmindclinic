@@ -14,6 +14,7 @@ export default createStore({
     medical: null,
     overseasPresent: null,
     mba: null,
+    pubs: null,
   },
   mutations: {
     setToken(state, token) {
@@ -30,6 +31,9 @@ export default createStore({
     },
     setMba(state, payload) {
       state.mba = payload;
+    },
+    setPubs(state, payload) {
+      state.pubs = payload;
     },
   },
   actions: {
@@ -62,6 +66,11 @@ export default createStore({
       const response = await axios.get("/mba");
 
       commit("setMba", response.data);
+    },
+    async fetchPubs({ commit }) {
+      const response = await axios.get("/pubs");
+
+      commit("setPubs", response.data);
     },
   },
   getters: {},
