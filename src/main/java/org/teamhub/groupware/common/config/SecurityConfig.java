@@ -41,7 +41,17 @@ public class SecurityConfig {
             "/medical",
             "/overseasPresent",
             "/mba",
-            "/pubs"
+            "/pubs",
+            "/noticeBoardList",
+            "/notice/**",
+            "/greeting",
+            "/clinicalDepartments",
+            "/clinicHours",
+            "/doctorProfile/**",
+            "/gallery",
+            "/directions",
+            "/detail/**",
+            "/noticeBoardDetail/**"
     };
 
     private final UserDetailsService userDetailsService;

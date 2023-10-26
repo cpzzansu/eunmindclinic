@@ -17,15 +17,6 @@
         은헌정 정신건강의학과의원의 소식을 전해드립니다.
       </div>
       <NoticeTable></NoticeTable>
-      <div class="notice-search-div row col-12 justify-center">
-        <select class="notice-select-box">
-          <option disabled selected value="">분류</option>
-          <option value="title">제목</option>
-          <option value="title-content">제목+내용</option>
-        </select>
-        <div><input class="notice-input-box" placeholder="검색어 입력" /></div>
-        <div class="search-btn">검색</div>
-      </div>
     </div>
     <FooterDiv></FooterDiv>
   </div>
@@ -75,39 +66,6 @@ export default defineComponent({
   font-size: 20px;
   font-weight: 500;
   margin-bottom: 80px;
-}
-.notice-select-box {
-  font-family: "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
-  height: 27px;
-  width: 91px;
-  border-radius: 2px;
-  font-size: 14px;
-  font-weight: 500;
-  margin-right: 10px;
-  padding: 0px 10px;
-}
-.notice-input-box {
-  font-family: "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
-  width: 200px;
-  height: 27px;
-  font-size: 14px;
-  font-weight: 500;
-  padding: 0px 10px;
-}
-.search-btn {
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: 500;
-  background-color: #333333;
-  border-radius: 2px;
-  width: 56px;
-  height: 27px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.notice-search-div {
-  margin-bottom: 150px;
 }
 @media (max-width: 580px) {
   .main-banner-div {

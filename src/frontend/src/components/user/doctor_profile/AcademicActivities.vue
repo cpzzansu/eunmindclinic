@@ -100,6 +100,7 @@ export default defineComponent({
 .activities-table .q-table tbody td {
   background-color: rgba(240, 246, 242, 1);
   font-size: 16px;
+  color: #333333;
   font-weight: 400;
   height: 28px;
   padding: 0px 0px 0px 20px;

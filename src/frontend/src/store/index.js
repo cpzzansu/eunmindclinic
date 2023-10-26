@@ -15,6 +15,8 @@ export default createStore({
     overseasPresent: null,
     mba: null,
     pubs: null,
+    noticeBoard: null,
+    number: null,
   },
   mutations: {
     setToken(state, token) {
@@ -34,6 +36,12 @@ export default createStore({
     },
     setPubs(state, payload) {
       state.pubs = payload;
+    },
+    setNoticeBoard(state, payload) {
+      state.noticeBoard = payload;
+    },
+    setNumber(state, payload) {
+      state.number = payload;
     },
   },
   actions: {
@@ -71,6 +79,25 @@ export default createStore({
       const response = await axios.get("/pubs");
 
       commit("setPubs", response.data);
+    },
+    async fetchNoticeBoardList({ commit }) {
+      const response = await axios.get("/noticeBoardList");
+
+      let number = 1;
+
+      const noticeCheckList = Object.keys(response.data)
+        .filter((key) => response.data[key].noticeCheck === 1)
+        .map((key) => {
+          return { ...response.data[key], number: number++ }; // 새로운 객체를 생성하여 반환
+        });
+
+      noticeCheckList.forEach((item) => {
+        item.number = "공지";
+      });
+
+      const combinedData = [...noticeCheckList, ...response.data];
+
+      commit("setNoticeBoard", combinedData);
     },
   },
   getters: {},

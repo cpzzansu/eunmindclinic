@@ -11,9 +11,9 @@ import MasterOfBusinessAdministration from "@/components/user/doctor_profile/Mas
 import PublishedWorks from "@/components/user/doctor_profile/PublishedWorks.vue";
 import Gallery from "@/components/user/views/Gallery.vue";
 import Notice from "@/components/user/views/Notice.vue";
-import Detail from "@/components/user/notice/Detail.vue";
 import Directions from "@/components/user/views/Directions.vue";
 import store from "@/store";
+import NoticeDetail from "@/components/user/views/NoticeDetail.vue";
 
 const routes = [
   {
@@ -116,8 +116,21 @@ const routes = [
     ],
   },
   { path: "/gallery", name: "Gallery", component: Gallery },
-  { path: "/notice", name: "Notice", component: Notice },
-  { path: "/detail", name: "detail", component: Detail },
+  {
+    path: "/notice",
+    name: "Notice",
+    component: Notice,
+    beforeEnter: async (to, from, next) => {
+      try {
+        await store.dispatch("fetchNoticeBoardList");
+        next();
+      } catch (error) {
+        console.log("Error fetching data: ", error);
+        next(false);
+      }
+    },
+  },
+  { path: "/detail/:id", name: "detail", component: NoticeDetail },
   { path: "/directions", name: "directions", component: Directions },
   // ... other routes if any
 ];
