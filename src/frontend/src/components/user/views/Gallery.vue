@@ -52,31 +52,17 @@
       </div>
       <div class="image-list-wrapper row justify-center">
         <div class="image-list col-10 col-md-8">
-          <div
-            v-for="(image, index) in imageList"
-            :key="image"
-            :class="{ selected: isSelected(index) }"
-            :style="{ transform: `translateX(${translateValue.value}px)` }"
-            class="image-item"
-          >
-            <img :src="image" />
+          <div class="moving-div" :style="{ transform: getTransform() }">
+            <div
+              v-for="(image, index) in imageList"
+              :key="image"
+              class="image-item"
+              :class="{ selected: isSelected(index) }"
+            >
+              <img :src="image" />
+            </div>
           </div>
         </div>
-      </div>
-      <div class="q-pa-md">
-        <q-carousel
-          v-model="currentImageIndex"
-          animated
-          arrows
-          infinite
-          navigation
-        >
-          <q-carousel-slide
-            v-for="(image, index) in imageList"
-            :key="index"
-            :img-src="image"
-          />
-        </q-carousel>
       </div>
     </div>
     <FooterDiv></FooterDiv>
@@ -126,10 +112,14 @@ export default defineComponent({
       return index === currentImageIndex.value;
     };
 
-    const translateValue = computed(() => {
-      // 여기서 이미지의 넓이(예: 100px)와 여백(예: 10px)을 고려하여 계산할 수 있습니다.
-      return currentImageIndex.value * 1100 * -1; // 예: 이미지 넓이 100px, 여백 10px
-    });
+    function getTransform() {
+      const imageWidth = 235; // 이미지의 너비 (예: 100px)
+      const margin = 10; // 이미지 간의 여백 (예: 10px)
+      const totalWidth = imageWidth + margin;
+
+      // 이미지 리스트 전체를 translateX로 움직입니다.
+      return `translateX(-${currentImageIndex.value * totalWidth}px)`;
+    }
 
     return {
       imageList,
@@ -138,12 +128,13 @@ export default defineComponent({
       goToPreviousImage,
       currentImage,
       isSelected,
-      translateValue,
+      slide: ref(1),
+      getTransform,
     };
   },
 });
 </script>
-<style scoped>
+<style>
 /* Your CSS styles here */
 .main-content {
   margin-top: 100px;
@@ -184,21 +175,30 @@ export default defineComponent({
 .gallery-picture {
   width: 100%;
 }
+.moving-div {
+  display: flex;
+  transition: transform 0.3s ease-in-out;
+  align-items: center;
+}
 .image-list {
+  min-height: 210px;
   display: flex; /* 요소들을 가로로 나열 */
   overflow-x: auto; /* 가로 스크롤 활성화 */
   white-space: nowrap; /* 줄바꿈 방지 */
   padding-bottom: 10px;
-  transition: transform 0.3s ease-in-out;
 }
 .image-item img {
-  max-height: 132px; /* 높이 제한 (원하시는대로 조절 가능) */
+  width: 235px;
   margin-right: 10px; /* 이미지 사이의 간격 */
-  transition: margin 0.3s ease-in-out;
+  transition:
+    transform 0.4s ease,
+    margin-right 0.3s ease;
+  border-radius: 2px;
 }
 .image-item.selected img {
-  transform: scale(1.2);
-  margin: 0px 20px;
+  transform: scale(1.3);
+  margin-right: 50px;
+  border-radius: 2px;
 }
 .image-list-wrapper {
   overflow: hidden;
@@ -224,6 +224,18 @@ export default defineComponent({
   cursor: pointer; /* 마우스 포인터를 버튼 위에 올리면 포인터 모양으로 변경됩니다. */
   z-index: 1; /* 이미지 위에 버튼이 올라오도록 z-index 값을 지정합니다. */
 }
+.custom-carousel .q-carousel__slide {
+  height: calc(
+    100% - 60px
+  ); /* 60px는 썸네일의 예상 높이입니다. 조절이 필요할 수 있습니다. */
+}
+
+.custom-carousel .q-carousel__navigation {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
 .prev {
   left: 10px; /* 왼쪽 버튼 위치 지정 */
@@ -231,6 +243,42 @@ export default defineComponent({
 
 .next {
   right: 10px; /* 오른쪽 버튼 위치 지정 */
+}
+.custom-carousel-container {
+  position: relative;
+}
+
+.custom-carousel {
+  margin-bottom: 50px; /* 썸네일의 높이와 여백을 고려하여 조절해야 합니다. */
+}
+
+.custom-thumbnails {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* 버튼 간의 간격을 조절합니다. */
+}
+
+.custom-thumbnails button {
+  padding: 5px 10px;
+  cursor: pointer;
+  border: none;
+  background-color: #ddd;
+  transition: background-color 0.3s;
+
+  /* 선택된 썸네일의 스타일을 변경하려면 아래 코드를 사용하십시오. */
+  /* &:active, &.active {
+      background-color: #bbb;
+  } */
+}
+
+.custom-thumbnails button:hover {
+  background-color: #ccc;
+}
+
+@media (max-width: 875px) {
+  .image-list-wrapper {
+    display: none;
+  }
 }
 
 @media (max-width: 580px) {
