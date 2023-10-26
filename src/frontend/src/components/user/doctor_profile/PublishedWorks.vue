@@ -1,42 +1,25 @@
 <template>
   <div class="col-10 col-md-8 activities-div">
-    <div class="q-pa-md activities-table" id="publishWorks">
+    <div id="publishWorks" class="q-pa-md activities-table">
       <q-table
-          :columns="columns"
-          :pagination="myInitialPagination"
-          :rows="rows"
-          :rows-per-page-options="[0]"
-          hide-header
-          hide-pagination
-          row-key="id"
+        :columns="columns"
+        :pagination="myInitialPagination"
+        :rows="rows"
+        :rows-per-page-options="[0]"
+        hide-header
+        hide-pagination
+        row-key="id"
       />
     </div>
   </div>
 </template>
 <script>
-import { defineComponent } from "vue";
+import { computed, defineComponent, onMounted, ref } from "vue";
 import FooterDiv from "@/components/user/footer/FooterDiv.vue";
 import NavigationButtonDiv from "@/components/user/navi_btn/NavigationButtonDiv.vue";
 import NavigationBar from "@/components/user/navi/NavigationBar.vue";
 import DoctorProfileNavigation from "@/components/user/doctor_profile/DoctorProfileNavigation.vue";
-
-
-const columns = [
-  {
-    name: "idx",
-    align: "left",
-    field: (row) => row.description,
-    format: (val) => `${val}`,
-    style: "width: 45px",
-  },
-
-];
-
-const rows = [
-  { id: 1, description: "출판 정회원" },
-  { id: 2, description: "대한의사협회(KMA) 정회원" },
-  { id: 3, description: "대한의사협회(KMA) 정회원" },
-];
+import { useStore } from "vuex";
 
 export default defineComponent({
   components: {
@@ -46,7 +29,28 @@ export default defineComponent({
     FooterDiv,
   },
   setup() {
+    const store = useStore();
+    const pubs = ref([]);
+
+    onMounted(() => {
+      pubs.value = store.state.pubs;
+      console.log(pubs.value);
+    });
+
+    const columns = [
+      {
+        name: "idx",
+        align: "left",
+        field: (row) => row.publishedWorks,
+        format: (val) => `${val}`,
+        style: "width: 45px",
+      },
+    ];
+
+    const rows = computed(() => pubs.value);
+
     return {
+      pubs,
       columns,
       rows,
       myInitialPagination: {
@@ -95,5 +99,4 @@ export default defineComponent({
   font-weight: 700;
   padding-left: 0px;
 }
-
 </style>

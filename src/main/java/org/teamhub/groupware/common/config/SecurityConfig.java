@@ -36,7 +36,22 @@ public class SecurityConfig {
             "/favicon.ico",
             "/assets/**",
             "/",
-            "/images/**"
+            "/images/**",
+            "/academicActivities",
+            "/medical",
+            "/overseasPresent",
+            "/mba",
+            "/pubs",
+            "/noticeBoardList",
+            "/notice/**",
+            "/greeting",
+            "/clinicalDepartments",
+            "/clinicHours",
+            "/doctorProfile/**",
+            "/gallery",
+            "/directions",
+            "/detail/**",
+            "/noticeBoardDetail/**"
     };
 
     private final UserDetailsService userDetailsService;

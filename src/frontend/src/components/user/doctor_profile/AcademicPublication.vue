@@ -1,32 +1,51 @@
 <template>
   <div class="col-10 col-md-8">
     <div class="row publication-btn-div">
-      <RouterLink class="menu-link col-3" to="/doctorProfile/academicPublication"
-        ><div class="publication-btn row justify-center items-center" :class="{'active-link': $route.path === '/doctorProfile/academicPublication'}">
+      <RouterLink
+        class="menu-link col-3"
+        to="/doctorProfile/academicPublication"
+        ><div
+          :class="{
+            'active-link': $route.path === '/doctorProfile/academicPublication',
+          }"
+          class="publication-btn row justify-center items-center"
+        >
           의학
         </div></RouterLink
       >
       <RouterLink
+        v-slot="{ isActive }"
         class="menu-link col-3"
-        to="/doctorProfile/academicPublication/overseasPresentation" v-slot="{isActive}"
+        to="/doctorProfile/academicPublication/overseasPresentation"
       >
-        <div class="publication-btn col-3 row justify-center items-center" :class="{'active-link': isActive}">
+        <div
+          :class="{ 'active-link': isActive }"
+          class="publication-btn col-3 row justify-center items-center"
+        >
           해외학회 논문 발표
         </div></RouterLink
       >
       <RouterLink
-          class="menu-link col-3"
-          to="/doctorProfile/academicPublication/mba" v-slot="{isActive}"
+        v-slot="{ isActive }"
+        class="menu-link col-3"
+        to="/doctorProfile/academicPublication/mba"
       >
-        <div class="publication-btn col-3 row justify-center items-center" :class="{'active-link': isActive}">
+        <div
+          :class="{ 'active-link': isActive }"
+          class="publication-btn col-3 row justify-center items-center"
+        >
           경 영 학
         </div>
       </RouterLink>
       <RouterLink
-          class="menu-link col-3"
-          to="/doctorProfile/academicPublication/pubs" v-slot="{isActive}"
+        v-slot="{ isActive }"
+        class="menu-link col-3"
+        to="/doctorProfile/academicPublication/pubs"
       >
-        <div class="publication-btn col-3 row justify-center items-center" :class="{'active-link': isActive}">
+        <div
+          :class="{ 'active-link': isActive }"
+          class="publication-btn col-3 row justify-center items-center"
+        >
           저 술
         </div>
       </RouterLink>
@@ -41,42 +60,29 @@
           hide-header
           hide-pagination
           row-key="id"
-        />
+        >
+          <template v-slot:body-cell-medicalPublication="props">
+            <q-td
+              :props="props"
+              style="word-wrap: break-word; white-space: normal"
+            >
+              {{ props.row.medicalPublication }}
+            </q-td>
+          </template>
+        </q-table>
       </div>
     </div>
     <RouterView></RouterView>
   </div>
 </template>
 <script>
-import {computed, defineComponent} from "vue";
+import { computed, defineComponent, onMounted, ref } from "vue";
 import FooterDiv from "@/components/user/footer/FooterDiv.vue";
 import NavigationButtonDiv from "@/components/user/navi_btn/NavigationButtonDiv.vue";
 import NavigationBar from "@/components/user/navi/NavigationBar.vue";
 import DoctorProfileNavigation from "@/components/user/doctor_profile/DoctorProfileNavigation.vue";
 import { useRoute } from "vue-router";
-
-
-
-const columns = [
-  {
-    name: "idx",
-    align: "left",
-    field: (row) => row.id,
-    format: (val) => `${val}`,
-    style: "width: 45px",
-  },
-  {
-    name: "description",
-    align: "left",
-    field: (row) => row.description,
-  },
-];
-
-const rows = [
-  { id: 1, description: "대한의사협회(KMA) 정회원" },
-  { id: 2, description: "대한의사협회(KMA) 정회원" },
-  { id: 3, description: "대한의사협회(KMA) 정회원" },
-];
+import { useStore } from "vuex";
 
 export default defineComponent({
   components: {
@@ -87,11 +93,36 @@ export default defineComponent({
   },
   setup() {
     const route = useRoute();
+    const store = useStore();
+    const medical = ref([]);
 
     const hasChildRoute = computed(() => {
       return route.path !== "/doctorProfile/academicPublication";
     });
+
+    onMounted(() => {
+      medical.value = store.state.medical;
+    });
+
+    const columns = [
+      {
+        name: "idx",
+        align: "left",
+        field: (row) => row.id,
+        format: (val) => `${val}`,
+        style: "width: 45px; vertical-align: top;",
+      },
+      {
+        name: "medicalPublication",
+        align: "left",
+        field: (row) => row.medicalPublication,
+      },
+    ];
+
+    const rows = computed(() => medical.value);
+
     return {
+      medical,
       columns,
       rows,
       myInitialPagination: {
@@ -153,7 +184,7 @@ export default defineComponent({
   color: #333333;
   border-right: 1px rgba(255, 255, 255, 1) solid;
 }
-.active-link.publication-btn{
+.active-link.publication-btn {
   background-color: #149473;
   color: #ffffff;
 }

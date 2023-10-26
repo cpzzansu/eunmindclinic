@@ -1,16 +1,39 @@
 <template>
-  <div class="row justify-center">
-    <div class="col-10 col-md-8 notice-detail-div">
+  <div class="row justify-center col-12">
+    <div class="notice-detail-div col-10 col-md-8">
       <div class="row notice-title-div">
-        <div class="notice-number">공지</div>
-        <div class="notice-title">제목</div>
-        <div class="notice-regist-date justify-end">2023.10.20</div>
+        <div class="notice-number">{{ rowData.number }}</div>
+        <div class="notice-title">{{ rowData.noticeBoardTitle }}</div>
+        <div class="notice-regist-date justify-end">
+          {{ rowData.registDate }}
+        </div>
       </div>
-      <div class="notice-content">내용</div>
+      <div class="notice-content">{{ rowData.noticeBoardContent }}</div>
     </div>
   </div>
 </template>
-<script></script>
+<script setup>
+import { onMounted, ref } from "vue";
+import { useRoute } from "vue-router";
+import axios from "axios";
+import { useStore } from "vuex";
+
+const route = useRoute();
+const store = useStore();
+const rowData = ref({});
+
+onMounted(async () => {
+  const rowId = route.params.id;
+  try {
+    const response = await axios.get(`/noticeBoardDetail?id=${rowId}`);
+    response.data.number = sessionStorage.getItem("number");
+
+    rowData.value = response.data;
+  } catch (error) {
+    console.error("Error fetching notice board detail:", error);
+  }
+});
+</script>
 <style scoped>
 .notice-title-div {
   background-color: rgba(240, 246, 242, 1);
@@ -18,7 +41,6 @@
   height: 62px;
 }
 .notice-detail-div {
-  height: 467px;
   font-size: 18px;
   font-weight: 500;
   border: 1px rgba(240, 246, 242, 1) solid;
@@ -47,6 +69,7 @@
   color: rgba(51, 51, 51, 0.5);
 }
 .notice-content {
-  padding: 30px;
+  padding: 50px;
+  color: #333333;
 }
 </style>

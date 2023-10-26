@@ -8,7 +8,7 @@
         :rows-per-page-options="[0]"
         hide-pagination
         row-key="name"
-        style="border-top: 3px rgba(20, 148, 115, 1) solid"
+        style="border-top: 3px rgba(20, 148, 115, 1) solid; color: #333333"
       />
     </div>
   </div>
@@ -76,6 +76,7 @@ export default {
   font-weight: 500;
   font-size: 18px;
 }
+
 .q-table__card {
   border-radius: 0px;
   box-shadow: none;
@@ -91,11 +92,13 @@ export default {
 .q-table td {
   border-bottom: 1px rgba(240, 246, 242, 1) solid;
   border-right: 1px rgba(240, 246, 242, 1) solid;
+  color: #333333;
 }
 .q-table tbody td {
   font-weight: 500;
   font-size: 18px;
   height: 62px;
+  color: #333333;
 }
 .q-table td:last-child {
   border-right: none;

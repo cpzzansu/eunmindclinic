@@ -24,12 +24,12 @@ export default defineConfig({
   build: {
     outDir: "../main/resources/static",
   },
-  // server: {
-  //   proxy: {
-  //     '/': {
-  //       target: 'http://localhost:8080',
-  //       changeOrigin: true,
-  //     },
-  //   }
-  // }
+  server: {
+    proxy: {
+      "/": {
+        target: "http://localhost:8080",
+        changeOrigin: true,
+      },
+    },
+  },
 });

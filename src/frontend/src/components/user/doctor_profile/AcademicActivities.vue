@@ -9,64 +9,23 @@
         hide-header
         hide-pagination
         row-key="name"
-      />
+      >
+        <template v-slot:body-cell-academicDate="props">
+          <q-td :props="props" style="white-space: pre-line">
+            <span v-html="props.row.academicDate"></span>
+          </q-td>
+        </template>
+      </q-table>
     </div>
   </div>
 </template>
 <script>
-import { defineComponent } from "vue";
+import { computed, defineComponent, onMounted, ref } from "vue";
 import FooterDiv from "@/components/user/footer/FooterDiv.vue";
 import NavigationButtonDiv from "@/components/user/navi_btn/NavigationButtonDiv.vue";
 import NavigationBar from "@/components/user/navi/NavigationBar.vue";
 import DoctorProfileNavigation from "@/components/user/doctor_profile/DoctorProfileNavigation.vue";
-const columns = [
-  {
-    name: "date",
-    align: "center",
-    field: (row) => row.date,
-    format: (val) => `${val}`,
-    style: "width: 130px",
-  },
-  {
-    name: "description",
-    align: "left",
-    field: (row) => row.description,
-  },
-];
-
-const rows = [
-  {
-    date: "1982 - 현재",
-    description: "대한의사협회(KMA) 정회원",
-  },
-  { date: "1982 - 현재", description: "대한의사협회(KMA) 정회원" },
-  { date: "1982 - 현재", description: "대한의사협회(KMA) 정회원" },
-  { date: "1982 - 현재", description: "대한의사협회(KMA) 정회원" },
-  { date: "1982 - 현재", description: "대한의사협회(KMA) 정회원" },
-  { date: "1982 - 현재", description: "대한의사협회(KMA) 정회원" },
-  { date: "1982 - 현재", description: "대한의사협회(KMA) 정회원" },
-  { date: "1982 - 현재", description: "대한의사협회(KMA) 정회원" },
-  { date: "1982 - 현재", description: "대한의사협회(KMA) 정회원" },
-  { date: "1982 - 현재", description: "대한의사협회(KMA) 정회원" },
-  { date: "1982 - 현재", description: "대한의사협회(KMA) 정회원" },
-  { date: "1982 - 현재", description: "대한의사협회(KMA) 정회원" },
-  { date: "1982 - 현재", description: "대한의사협회(KMA) 정회원" },
-  { date: "1982 - 현재", description: "대한의사협회(KMA) 정회원" },
-  { date: "1982 - 현재", description: "대한의사협회(KMA) 정회원" },
-  { date: "1982 - 현재", description: "대한의사협회(KMA) 정회원" },
-  { date: "1982 - 현재", description: "대한의사협회(KMA) 정회원" },
-  { date: "1982 - 현재", description: "대한의사협회(KMA) 정회원" },
-  { date: "1982 - 현재", description: "대한의사협회(KMA) 정회원" },
-  { date: "1982 - 현재", description: "대한의사협회(KMA) 정회원" },
-  { date: "1982 - 현재", description: "대한의사협회(KMA) 정회원" },
-  { date: "1982 - 현재", description: "대한의사협회(KMA) 정회원" },
-  { date: "1982 - 현재", description: "대한의사협회(KMA) 정회원" },
-  { date: "1982 - 현재", description: "대한의사협회(KMA) 정회원" },
-  { date: "1982 - 현재", description: "대한의사협회(KMA) 정회원" },
-  { date: "1982 - 현재", description: "대한의사협회(KMA) 정회원" },
-  { date: "1982 - 현재", description: "대한의사협회(KMA) 정회원" },
-  { date: "1982 - 현재", description: "대한의사협회(KMA) 정회원" },
-];
+import { useStore } from "vuex";
 
 export default defineComponent({
   components: {
@@ -76,7 +35,31 @@ export default defineComponent({
     FooterDiv,
   },
   setup() {
+    const activities = ref([]);
+    const store = useStore();
+
+    onMounted(() => {
+      activities.value = store.state.activities;
+    });
+
+    const columns = [
+      {
+        name: "academicDate",
+        align: "center",
+        field: (row) => row.academicDate,
+        style: "width: 130px",
+      },
+      {
+        name: "description",
+        align: "left",
+        field: (row) => row.description,
+      },
+    ];
+
+    const rows = computed(() => activities.value);
+
     return {
+      activities,
       columns,
       rows,
       myInitialPagination: {
@@ -97,6 +80,7 @@ export default defineComponent({
   padding: 0px 0px;
   background-color: rgba(240, 246, 242, 1);
   max-height: 564px;
+  min-height: 200px;
   overflow-y: auto;
 }
 .activities-table::-webkit-scrollbar {
@@ -116,6 +100,7 @@ export default defineComponent({
 .activities-table .q-table tbody td {
   background-color: rgba(240, 246, 242, 1);
   font-size: 16px;
+  color: #333333;
   font-weight: 400;
   height: 28px;
   padding: 0px 0px 0px 20px;
@@ -123,15 +108,13 @@ export default defineComponent({
 .activities-table .q-table td:first-child {
   font-size: 18px;
   font-weight: 700;
-  padding-left: 0px;
   color: #149473;
 }
 #overseas .q-table td:first-child {
   font-size: 16px;
   font-weight: 400;
-  padding-left: 0px;
   color: #333333;
-  line-height: 28px;
+  line-height: 29px;
 }
 #mba .q-table td:first-child {
   font-size: 16px;
@@ -146,5 +129,8 @@ export default defineComponent({
   padding-left: 0px;
   color: #333333;
   line-height: 28px;
+}
+span {
+  font-weight: 400;
 }
 </style>

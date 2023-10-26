@@ -1,25 +1,31 @@
 <template>
   <div class="col-10 col-md-8 activities-div">
-    <div class="q-pa-md activities-table" id="mba">
+    <div id="mba" class="q-pa-md activities-table">
       <q-table
-          :columns="columns"
-          :pagination="myInitialPagination"
-          :rows="rows"
-          :rows-per-page-options="[0]"
-          hide-header
-          hide-pagination
-          row-key="id"
-      />
+        :columns="columns"
+        :pagination="myInitialPagination"
+        :rows="rows"
+        :rows-per-page-options="[0]"
+        hide-header
+        hide-pagination
+        row-key="id"
+      >
+        <template v-slot:body-cell-mbaContent="props">
+          <q-td :props="props" style="white-space: pre-line">
+            <span v-html="props.row.mbaContent"></span>
+          </q-td>
+        </template>
+      </q-table>
     </div>
   </div>
 </template>
 <script>
-import { defineComponent } from "vue";
+import { computed, defineComponent, onMounted, ref } from "vue";
 import FooterDiv from "@/components/user/footer/FooterDiv.vue";
 import NavigationButtonDiv from "@/components/user/navi_btn/NavigationButtonDiv.vue";
 import NavigationBar from "@/components/user/navi/NavigationBar.vue";
 import DoctorProfileNavigation from "@/components/user/doctor_profile/DoctorProfileNavigation.vue";
-
+import { useStore } from "vuex";
 
 const columns = [
   {
@@ -29,7 +35,6 @@ const columns = [
     format: (val) => `${val}`,
     style: "width: 45px",
   },
-
 ];
 
 const rows = [
@@ -46,7 +51,28 @@ export default defineComponent({
     FooterDiv,
   },
   setup() {
+    const store = useStore();
+    const mba = ref([]);
+
+    onMounted(() => {
+      mba.value = store.state.mba;
+      console.log(mba.value);
+    });
+
+    const columns = [
+      {
+        name: "mbaContent",
+        align: "left",
+        field: (row) => row.mbaContent,
+        format: (val) => `${val}`,
+        style: "width: 45px",
+      },
+    ];
+
+    const rows = computed(() => mba.value);
+
     return {
+      mba,
       columns,
       rows,
       myInitialPagination: {
@@ -96,5 +122,4 @@ export default defineComponent({
   padding-left: 0px;
   color: #333333;
 }
-
 </style>

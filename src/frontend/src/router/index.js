@@ -11,8 +11,9 @@ import MasterOfBusinessAdministration from "@/components/user/doctor_profile/Mas
 import PublishedWorks from "@/components/user/doctor_profile/PublishedWorks.vue";
 import Gallery from "@/components/user/views/Gallery.vue";
 import Notice from "@/components/user/views/Notice.vue";
-import Detail from "@/components/user/notice/Detail.vue";
 import Directions from "@/components/user/views/Directions.vue";
+import store from "@/store";
+import NoticeDetail from "@/components/user/views/NoticeDetail.vue";
 
 const routes = [
   {
@@ -44,34 +45,92 @@ const routes = [
         path: "academicActivities",
         name: "AcademicActivities",
         component: AcademicActivities,
+        beforeEnter: async (to, from, next) => {
+          try {
+            await store.dispatch("fetchActivities");
+            next();
+          } catch (error) {
+            console.log("Error fetching data: ", error);
+            next(false);
+          }
+        },
       },
       {
         path: "academicPublication",
         name: "AcademicPublication",
         component: AcademicPublication,
+        beforeEnter: async (to, from, next) => {
+          try {
+            await store.dispatch("fetchMedical");
+            next();
+          } catch (error) {
+            console.log("Error fetching data: ", error);
+            next(false);
+          }
+        },
         children: [
           {
             path: "overseasPresentation",
             name: "OverseasPresentation",
             component: OverseasPresentation,
+            beforeEnter: async (to, from, next) => {
+              try {
+                await store.dispatch("fetchOverseasPresent");
+                next();
+              } catch (error) {
+                console.log("Error fetching data: ", error);
+                next(false);
+              }
+            },
           },
           {
             path: "mba",
             name: "masterOfBusinessAdministration",
             component: MasterOfBusinessAdministration,
+            beforeEnter: async (to, from, next) => {
+              try {
+                await store.dispatch("fetchMba");
+                next();
+              } catch (error) {
+                console.log("Error fetching data: ", error);
+                next(false);
+              }
+            },
           },
           {
             path: "pubs",
             name: "publishedWorks",
             component: PublishedWorks,
+            beforeEnter: async (to, from, next) => {
+              try {
+                await store.dispatch("fetchPubs");
+                next();
+              } catch (error) {
+                console.log("Error fetching data: ", error);
+                next(false);
+              }
+            },
           },
         ],
       },
     ],
   },
   { path: "/gallery", name: "Gallery", component: Gallery },
-  { path: "/notice", name: "Notice", component: Notice },
-  { path: "/detail", name: "detail", component: Detail },
+  {
+    path: "/notice",
+    name: "Notice",
+    component: Notice,
+    beforeEnter: async (to, from, next) => {
+      try {
+        await store.dispatch("fetchNoticeBoardList");
+        next();
+      } catch (error) {
+        console.log("Error fetching data: ", error);
+        next(false);
+      }
+    },
+  },
+  { path: "/detail/:id", name: "detail", component: NoticeDetail },
   { path: "/directions", name: "directions", component: Directions },
   // ... other routes if any
 ];
@@ -79,6 +138,10 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach(async (to, from, next) => {
+  next();
 });
 
 export default router;
