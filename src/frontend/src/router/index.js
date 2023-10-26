@@ -14,6 +14,7 @@ import Notice from "@/components/user/views/Notice.vue";
 import Directions from "@/components/user/views/Directions.vue";
 import store from "@/store";
 import NoticeDetail from "@/components/user/views/NoticeDetail.vue";
+import AdminLogin from "@/components/admin/views/AdminLogin.vue";
 
 const routes = [
   {
@@ -132,6 +133,11 @@ const routes = [
   },
   { path: "/detail/:id", name: "detail", component: NoticeDetail },
   { path: "/directions", name: "directions", component: Directions },
+  {
+    path: "/admin",
+    name: "adminLogin",
+    component: AdminLogin,
+  },
   // ... other routes if any
 ];
 
