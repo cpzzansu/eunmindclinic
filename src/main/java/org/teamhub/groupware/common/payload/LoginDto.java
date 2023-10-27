@@ -18,6 +18,4 @@ public class LoginDto {
     @NotBlank(message = "Password cannot be blank")
     private String password;
 
-
-
 }

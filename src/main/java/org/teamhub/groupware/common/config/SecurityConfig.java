@@ -51,7 +51,9 @@ public class SecurityConfig {
             "/gallery",
             "/directions",
             "/detail/**",
-            "/noticeBoardDetail/**"
+            "/noticeBoardDetail/**",
+            "/admin",
+            "/adminAddMember"
     };
 
     private final UserDetailsService userDetailsService;

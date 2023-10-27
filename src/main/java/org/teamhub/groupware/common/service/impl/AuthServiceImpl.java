@@ -59,10 +59,7 @@ public class AuthServiceImpl implements AuthService {
             );
             SecurityContextHolder.getContext().setAuthentication(authResult);
             String jwt = jwtTokenProvider.generateToken(authResult);
-            String refreshToken = UUID.randomUUID().toString().replace("-", "");
-            redisTemplate.opsForValue().set(refreshToken, authReq.getUsername());
-            redisTemplate.expire(refreshToken, refreshTokenExpirationDate, TimeUnit.MILLISECONDS);
-            return new JWTAuthResponse(jwt, "Bearer", refreshToken);
+            return new JWTAuthResponse(jwt, "Bearer");
         } catch (Exception e) {
             log.error("Error during authentication: ", e);
             throw e;
@@ -92,6 +89,6 @@ public class AuthServiceImpl implements AuthService {
             redisTemplate.opsForValue().set(newRefreshToken, username);
             redisTemplate.expire(newRefreshToken, refreshTokenExpirationDate, TimeUnit.MILLISECONDS);
             redisTemplate.delete(refreshToken);
-            return new JWTAuthResponse(jwt, "Bearer", newRefreshToken);
+            return new JWTAuthResponse(jwt, "Bearer");
         }
     }

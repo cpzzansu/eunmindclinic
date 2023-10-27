@@ -4,7 +4,7 @@
       <NavigationBar></NavigationBar>
       <div class="main-banner-phrase">
         <div class="main-banner-sentence row items-center justify-center">
-          관리자 로그인
+          관리자 회원가입 신청
         </div>
       </div>
     </div>
@@ -22,24 +22,31 @@
             class="member-pw-input"
             label="비밀번호"
             outlined
+            type="password"
+          />
+          <q-input
+            v-model="memberName"
+            class="member-pw-input"
+            label="이름"
+            outlined
+          />
+          <q-input
+            v-model="memberEmail"
+            class="member-pw-input"
+            label="이메일"
+            outlined
+            type="email"
           />
           <q-btn
-            label="로그인"
+            label="회원가입 신청"
             outline
             style="color: #149473; height: 50px; margin-bottom: 10px"
-            @click="login"
+            @click="addMember"
           />
-          <div class="row justify-center">
-            <RouterLink class="non-deco" to="/AdminAddMember">
-              회원가입</RouterLink
-            >
-            <div class="side-bar">|</div>
-            <div @click="testlogin">비밀번호찾기</div>
-          </div>
         </div>
       </div>
     </div>
-    <RouterView></RouterView>
+
     <FooterDiv></FooterDiv>
   </div>
 </template>
@@ -49,58 +56,44 @@ import FooterDiv from "@/components/user/footer/FooterDiv.vue";
 import NavigationButtonDiv from "@/components/user/navi_btn/NavigationButtonDiv.vue";
 import NavigationBar from "@/components/user/navi/NavigationBar.vue";
 import axios from "axios";
-import { useRouter } from "vue-router";
 
 export default defineComponent({
   components: { NavigationBar, NavigationButtonDiv, FooterDiv },
   setup() {
-    const router = useRouter();
-
     const memberId = ref("");
     const memberPw = ref("");
+    const memberName = ref("");
+    const memberEmail = ref("");
+    const addMember = () => {
+      let username = memberId.value;
+      let password = memberPw.value;
+      let name = memberName.value;
+      let email = memberEmail.value;
 
-    const login = () => {
       const data = {
-        usernameOrEmail: memberId.value,
-        password: memberPw.value,
+        username: username,
+        password: password,
+        name: name,
+        email: email,
       };
+      console.log(data);
 
       axios
-        // .post("http://localhost:8080/api/auth/login", data)
-        .post("/api/auth/login", data)
+        // .post("http://localhost:8080/adminAddMember", data)
+        .post("/adminAddMember", data)
         .then((response) => {
-          const accessToken = response.data.accessToken;
-
-          localStorage.setItem("accessToken", accessToken);
-          router.push("/adminHome");
+          console.log(response);
         })
         .catch((error) => {
           console.log(error);
         });
     };
-
-    const testlogin = () => {
-      const token = localStorage.getItem("accessToken");
-      console.log(token);
-      axios
-        .get("/admin/home", {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        })
-        .then((response) => {
-          router.push("/adminHome");
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
-
     return {
       memberId,
       memberPw,
-      login,
-      testlogin,
+      memberName,
+      memberEmail,
+      addMember,
     };
   },
 });
@@ -108,8 +101,8 @@ export default defineComponent({
 <style scoped>
 /* Your CSS styles here */
 .main-content {
-  height: 400px;
   color: #333333;
+  margin-bottom: 100px;
 }
 .main-banner-sentence {
   font-weight: 700;
@@ -129,13 +122,6 @@ export default defineComponent({
 }
 .member-pw-input {
   margin-bottom: 10px;
-}
-.side-bar {
-  margin: 0px 10px;
-}
-.non-deco {
-  text-decoration: none;
-  color: #333333;
 }
 @media (max-width: 580px) {
   .main-banner-div {

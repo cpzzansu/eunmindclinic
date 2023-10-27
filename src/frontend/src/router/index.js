@@ -15,6 +15,9 @@ import Directions from "@/components/user/views/Directions.vue";
 import store from "@/store";
 import NoticeDetail from "@/components/user/views/NoticeDetail.vue";
 import AdminLogin from "@/components/admin/views/AdminLogin.vue";
+import AdminHome from "@/components/admin/views/AdminHome.vue";
+import AdminAddMember from "@/components/admin/views/AdminAddMember.vue";
+import axios from "axios";
 
 const routes = [
   {
@@ -138,6 +141,12 @@ const routes = [
     name: "adminLogin",
     component: AdminLogin,
   },
+  {
+    path: "/adminAddMember",
+    name: "adminAddMember",
+    component: AdminAddMember,
+  },
+  { path: "/adminHome", name: "adminHome", component: AdminHome },
   // ... other routes if any
 ];
 
@@ -147,6 +156,25 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
+  const token = localStorage.getItem("accessToken");
+
+  if (token) {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+    try {
+      const response = await axios.get(to.path);
+
+      if (response.data) {
+        next();
+      } else {
+        next("/admin");
+      }
+    } catch (error) {
+      console.log(error);
+      next("/admin");
+    }
+  }
+
   next();
 });
 
