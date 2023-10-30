@@ -52,12 +52,12 @@
       </div>
       <div class="image-list-wrapper row justify-center">
         <div class="image-list col-10 col-md-8">
-          <div class="moving-div" :style="{ transform: getTransform() }">
+          <div :style="{ transform: getTransform() }" class="moving-div">
             <div
               v-for="(image, index) in imageList"
               :key="image"
-              class="image-item"
               :class="{ selected: isSelected(index) }"
+              class="image-item"
             >
               <img :src="image" />
             </div>
@@ -69,28 +69,38 @@
   </div>
 </template>
 <script>
-import { computed, defineComponent, ref } from "vue";
+import { computed, defineComponent, onMounted, ref } from "vue";
 import FooterDiv from "@/components/user/footer/FooterDiv.vue";
 import NavigationButtonDiv from "@/components/user/navi_btn/NavigationButtonDiv.vue";
 import NavigationBar from "@/components/user/navi/NavigationBar.vue";
+import axios from "axios";
 
 export default defineComponent({
   components: { NavigationBar, NavigationButtonDiv, FooterDiv },
   setup() {
     const currentImageIndex = ref(0);
-    const imageList = ref([
-      "/images/picture-example.png",
-      "/images/avenue-815297_640.jpg",
-      "/images/bird-1045954_640.jpg",
-      "/images/bridge-53769_640.jpg",
-      "/images/fantasy-2049567_640.jpg",
-      "/images/flowers-276014_640.jpg",
-      "/images/ocean-3605547_640.jpg",
-      "/images/road-1072821_640.jpg",
-      "/images/road-1072823_640.jpg",
-      "/images/sunset-1373171_640.jpg",
-      "/images/tree-736885_1280.jpg",
-    ]);
+    const imageList = ref([]);
+
+    onMounted(async () => {
+      const token = localStorage.getItem("accessToken");
+
+      if (token) {
+        try {
+          axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+          const response = await axios.get("/getGallery");
+          const databaseImageLists = [];
+          response.data.forEach((data) => {
+            databaseImageLists.push(data.imageSourcePath);
+          });
+
+          imageList.value = databaseImageLists;
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        alert("로그인이 필요한 기능입니다.");
+      }
+    });
 
     const goToNextImage = () => {
       if (currentImageIndex.value < imageList.value.length - 1) {
@@ -181,7 +191,7 @@ export default defineComponent({
   align-items: center;
 }
 .image-list {
-  min-height: 210px;
+  min-height: 250px;
   display: flex; /* 요소들을 가로로 나열 */
   overflow-x: auto; /* 가로 스크롤 활성화 */
   white-space: nowrap; /* 줄바꿈 방지 */

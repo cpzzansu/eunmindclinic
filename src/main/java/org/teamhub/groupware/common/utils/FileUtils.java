@@ -25,8 +25,8 @@ public class FileUtils {
         // 사용자 홈 디렉토리를 기반으로 저장 경로 설정
 
         String userHome = System.getProperty("user.home");
-        String path = userHome + "/images/" + current.format(format);
-        String imageSourcePath = "/images/" + current.format(format);
+        String path = userHome + "/localImages/" + current.format(format);
+        String imageSourcePath = "/localImages/" + current.format(format);
 
         File file = new File(path);
         if(!file.exists()){
@@ -51,7 +51,7 @@ public class FileUtils {
                     break;
                 }
             }
-            newFileName = Long.toString(System.nanoTime()) + originalFileExtension;
+            newFileName = System.nanoTime() + originalFileExtension;
             FileDto fileDto = new FileDto();
             fileDto.setOriginalFileName(multipartFile.getOriginalFilename());
             fileDto.setStoredFilePath(path + "/" + newFileName);

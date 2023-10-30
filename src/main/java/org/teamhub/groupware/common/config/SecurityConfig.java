@@ -55,6 +55,12 @@ public class SecurityConfig {
             "/admin",
             "/adminAddMember"
     };
+    private static final String[] AUTHENTICATE_LIST = {
+            "/api/auth/private",
+            "/galleryAdd",
+            "/getGallery",
+            "/deleteGallery"
+    };
 
     private final UserDetailsService userDetailsService;
     private final JwtAuthenticationEntryPoint authenticationEntryPoint;
@@ -79,7 +85,8 @@ public class SecurityConfig {
                                 .requestMatchers(AUTH_WHITELIST).permitAll()
                                 .requestMatchers(BASIC_LIST).permitAll()
                                 .requestMatchers("/api/auth/**").permitAll()
-                                .anyRequest().authenticated()
+                                .requestMatchers(AUTHENTICATE_LIST).authenticated()
+                                .anyRequest().permitAll()
 
                 ).exceptionHandling(exception -> exception
                         .authenticationEntryPoint(authenticationEntryPoint)

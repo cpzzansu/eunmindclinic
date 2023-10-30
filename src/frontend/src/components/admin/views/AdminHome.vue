@@ -11,16 +11,18 @@
           은헌정 정신건강의원 관리 페이지
         </q-toolbar-title>
       </q-toolbar>
-
-      <q-tabs align="left">
-        <q-route-tab label="Page One" to="/page1" />
-        <q-route-tab label="Page Two" to="/page2" />
-        <q-route-tab label="Page Three" to="/page3" />
-      </q-tabs>
     </q-header>
 
     <q-drawer v-model="leftDrawerOpen" bordered show-if-above side="left">
       <!-- drawer content -->
+      <q-scroll-area class="fit">
+        <q-item v-ripple clickable @click="gallery">
+          <q-item-section avatar>
+            <q-icon />
+          </q-item-section>
+          <q-item-section> 갤러리 관리 </q-item-section>
+        </q-item>
+      </q-scroll-area>
     </q-drawer>
 
     <q-page-container>
@@ -31,16 +33,24 @@
 
 <script>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
 export default {
   setup() {
+    const router = useRouter();
+
     const leftDrawerOpen = ref(false);
+
+    const gallery = () => {
+      router.push("/adminHome/gallery");
+    };
 
     return {
       leftDrawerOpen,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;
       },
+      gallery,
     };
   },
 };

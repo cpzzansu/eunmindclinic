@@ -18,6 +18,7 @@ import AdminLogin from "@/components/admin/views/AdminLogin.vue";
 import AdminHome from "@/components/admin/views/AdminHome.vue";
 import AdminAddMember from "@/components/admin/views/AdminAddMember.vue";
 import axios from "axios";
+import AdminGallery from "@/components/admin/views/AdminGallery.vue";
 
 const routes = [
   {
@@ -146,7 +147,20 @@ const routes = [
     name: "adminAddMember",
     component: AdminAddMember,
   },
-  { path: "/adminHome", name: "adminHome", component: AdminHome },
+  {
+    path: "/adminHome",
+    name: "adminHome",
+    component: AdminHome,
+    meta: { requiresAuth: true },
+    children: [
+      {
+        path: "gallery",
+        name: "adminGallery",
+        component: AdminGallery,
+        meta: { requiresAuth: true },
+      },
+    ],
+  },
   // ... other routes if any
 ];
 
@@ -158,21 +172,27 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   const token = localStorage.getItem("accessToken");
 
-  if (token) {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (token) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-    try {
-      const response = await axios.get(to.path);
+      try {
+        const response = await axios.get("/api/auth/private");
 
-      if (response.data) {
-        next();
-      } else {
+        console.log(response);
+        if (response.status === 200) {
+          next();
+        } else {
+          next("/admin");
+        }
+      } catch (error) {
+        console.log(error);
         next("/admin");
       }
-    } catch (error) {
-      console.log(error);
+    } else {
       next("/admin");
     }
+  } else {
   }
 
   next();
