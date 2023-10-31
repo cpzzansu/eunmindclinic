@@ -15,6 +15,8 @@
             v-model="memberId"
             class="member-id-input"
             label="아이디"
+            lazy-rules
+            :rules="[(val) => !!val || '아이디는 필수 입력사항입니다.']"
             outlined
           />
           <q-input
@@ -22,12 +24,16 @@
             class="member-pw-input"
             label="비밀번호"
             outlined
+            lazy-rules
+            :rules="[(val) => !!val || '비밀번호는 필수 입력사항입니다.']"
             type="password"
           />
           <q-input
             v-model="memberName"
             class="member-pw-input"
             label="이름"
+            lazy-rules
+            :rules="[(val) => !!val || '이름은 필수 입력사항입니다.']"
             outlined
           />
           <q-input
@@ -35,6 +41,8 @@
             class="member-pw-input"
             label="이메일"
             outlined
+            lazy-rules
+            :rules="[(val) => !!val || '이메일은 필수 입력사항입니다.']"
             type="email"
           />
           <q-btn
@@ -56,14 +64,17 @@ import FooterDiv from "@/components/user/footer/FooterDiv.vue";
 import NavigationButtonDiv from "@/components/user/navi_btn/NavigationButtonDiv.vue";
 import NavigationBar from "@/components/user/navi/NavigationBar.vue";
 import axios from "axios";
+import { useQuasar } from "quasar";
 
 export default defineComponent({
   components: { NavigationBar, NavigationButtonDiv, FooterDiv },
   setup() {
-    const memberId = ref("");
-    const memberPw = ref("");
-    const memberName = ref("");
-    const memberEmail = ref("");
+    const $q = useQuasar();
+    const memberId = ref(null);
+    const memberPw = ref(null);
+    const memberName = ref(null);
+    const memberEmail = ref(null);
+
     const addMember = () => {
       let username = memberId.value;
       let password = memberPw.value;
@@ -76,7 +87,6 @@ export default defineComponent({
         name: name,
         email: email,
       };
-      console.log(data);
 
       axios
         // .post("http://localhost:8080/adminAddMember", data)
@@ -118,10 +128,8 @@ export default defineComponent({
   height: 330px;
 }
 .member-id-input {
-  margin-bottom: 10px;
 }
 .member-pw-input {
-  margin-bottom: 10px;
 }
 @media (max-width: 580px) {
   .main-banner-div {
