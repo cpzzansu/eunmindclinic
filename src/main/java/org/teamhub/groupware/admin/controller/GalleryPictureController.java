@@ -30,4 +30,9 @@ public class GalleryPictureController {
     public void deleteGallery(@RequestParam("id") String id){
         galleryPictureService.deleteGallery(id);
     }
+
+    @PutMapping("/modifyGallery")
+    public void modifyGallery(@RequestParam("file") MultipartFile file, @RequestParam("id") String id) throws Exception {
+        galleryPictureService.modifyGallery(file, id);
+    }
 }

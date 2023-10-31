@@ -59,7 +59,8 @@ public class SecurityConfig {
             "/api/auth/private",
             "/galleryAdd",
             "/getGallery",
-            "/deleteGallery"
+            "/deleteGallery",
+            "/modifyGallery"
     };
 
     private final UserDetailsService userDetailsService;

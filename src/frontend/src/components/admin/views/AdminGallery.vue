@@ -167,6 +167,7 @@ const columns = [
 
 const modifyImage = ref("");
 const modifyInput = ref(null);
+const modifyId = ref("");
 
 const modifyInputChange = (event) => {
   const file = event.target.files[0];
@@ -185,6 +186,7 @@ const modifyInputClick = () => {
 
 const handleEdit = (row) => {
   modifyImage.value = row.imageSourcePath;
+  modifyId.value = row.id;
   card.value = true;
 };
 
@@ -207,7 +209,34 @@ const handleDelete = async (id) => {
   }
 };
 
-const galleryModify = () => {};
+const galleryModify = async () => {
+  const file = modifyInput.value.files[0];
+  const id = modifyId.value;
+
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("id", id);
+  console.log(file);
+  if (file === undefined) {
+    alert("이미지가 선택되지 않았습니다. 이미지를 선택 후 다시 시도해주세요.");
+    return;
+  }
+
+  const token = localStorage.getItem("accessToken");
+  if (token) {
+    try {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      const response = await axios.put("/modifyGallery", formData);
+      if (response.status === 200) {
+        router.go(0);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    alert("로그인이 필요한 기능입니다.");
+  }
+};
 </script>
 <style scoped>
 .content-div {

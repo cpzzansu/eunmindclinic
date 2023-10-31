@@ -62,6 +62,38 @@ public class GalleryPictureService {
     }
 
     public void deleteGallery(String id){
+        if(deleteGalleryFile(id)){
+            galleryPictureRepository.deleteById(Long.parseLong(id));
+        }
+    }
+
+    public void modifyGallery(MultipartFile file, String id) throws Exception {
+        deleteGalleryFile(id);
+        Long galleryId = Long.parseLong(id);
+        List<MultipartFile> files = new ArrayList<>();
+        files.add(file);
+        List<FileDto> fileDtos = fileUtils.parseFileInfo(files);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        for(FileDto fileDto : fileDtos){
+            GalleryPictureDto galleryPictureDto = GalleryPictureDto.builder()
+                    .originalFileName(fileDto.getOriginalFileName())
+                    .storedFilePath(fileDto.getStoredFilePath())
+                    .imageSourcePath(fileDto.getImageSourcePath())
+                    .fileSize(fileDto.getFileSize())
+                    .updaterId(authentication.getName())
+                    .updateDate(LocalDateTime.now())
+                    .build();
+            Optional<GalleryPicture> galleryPicture = galleryPictureRepository.findById(galleryId);
+            log.info(galleryPictureDto.toString());
+            if(galleryPicture.isPresent()){
+                galleryPicture.get().modifyGallery(galleryPictureDto);
+            }
+
+        }
+    }
+
+    public Boolean deleteGalleryFile(String id){
+        Boolean result = false;
         Long galleryId = Long.parseLong(id);
 
         Optional<GalleryPicture> galleryPicture = galleryPictureRepository.findById(galleryId);
@@ -70,11 +102,9 @@ public class GalleryPictureService {
 
             log.info(storedFilePath);
             File file = new File(storedFilePath);
-            boolean result = file.delete();
+            result = file.delete();
 
-            log.info(String.valueOf(result));
-
-            galleryPictureRepository.deleteById(galleryId);
         }
+        return result;
     }
 }

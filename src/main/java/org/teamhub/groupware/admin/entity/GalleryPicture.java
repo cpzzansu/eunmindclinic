@@ -2,6 +2,7 @@ package org.teamhub.groupware.admin.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.teamhub.groupware.admin.payload.GalleryPictureDto;
 
 import java.time.LocalDateTime;
 
@@ -40,4 +41,13 @@ public class GalleryPicture {
 
     @Column(name = "update_date")
     private LocalDateTime updateDate;
+
+    public void modifyGallery(GalleryPictureDto galleryPictureDto){
+        this.originalFileName = galleryPictureDto.getOriginalFileName();
+        this.storedFilePath = galleryPictureDto.getStoredFilePath();
+        this.imageSourcePath = galleryPictureDto.getImageSourcePath();
+        this.fileSize = galleryPictureDto.getFileSize();
+        this.updaterId = galleryPictureDto.getUpdaterId();
+        this.updateDate = galleryPictureDto.getUpdateDate();
+    }
 }
