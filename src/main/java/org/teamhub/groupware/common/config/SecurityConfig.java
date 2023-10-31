@@ -58,7 +58,6 @@ public class SecurityConfig {
     private static final String[] AUTHENTICATE_LIST = {
             "/api/auth/private",
             "/galleryAdd",
-            "/getGallery",
             "/deleteGallery",
             "/modifyGallery",
             "/noticeAdd",

@@ -82,24 +82,17 @@ export default defineComponent({
     const imageList = ref([]);
 
     onMounted(async () => {
-      const token = localStorage.getItem("accessToken");
+      const response = await axios.get("/getGallery");
+      const databaseImageLists = [];
+      response.data.forEach((data) => {
+        databaseImageLists.push(data.imageSourcePath);
+      });
 
-      if (token) {
-        try {
-          axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-          const response = await axios.get("/getGallery");
-          const databaseImageLists = [];
-          response.data.forEach((data) => {
-            databaseImageLists.push(data.imageSourcePath);
-          });
+      imageList.value = databaseImageLists;
 
-          imageList.value = databaseImageLists;
-        } catch (error) {
-          console.log(error);
-        }
-      } else {
-        alert("로그인이 필요한 기능입니다.");
-      }
+      response.error((error) => {
+        console.log(error);
+      });
     });
 
     const goToNextImage = () => {
