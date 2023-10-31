@@ -15,14 +15,15 @@ public class NoticeBoardDto {
     private String noticeBoardContent;
     private int noticeCheck;
     private String writerId;
-    private LocalDate registDate;
+    private LocalDateTime registDate;
     private int viewCount;
     private String updaterId;
-    private LocalDate updateDate;
+    private LocalDateTime updateDate;
     private Long number;
 
+
     @QueryProjection
-    public NoticeBoardDto(Long id, String noticeBoardTitle, String noticeBoardContent, int noticeCheck,  String writerId, LocalDate registDate, int viewCount, String updaterId, LocalDate updateDate, Long number){
+    public NoticeBoardDto(Long id, String noticeBoardTitle, String noticeBoardContent, int noticeCheck,  String writerId, LocalDateTime registDate, int viewCount, String updaterId, LocalDateTime updateDate, Long number){
         this.id = id;
         this.noticeBoardTitle = noticeBoardTitle;
         this.noticeBoardContent = noticeBoardContent;

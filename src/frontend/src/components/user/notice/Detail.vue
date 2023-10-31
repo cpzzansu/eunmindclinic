@@ -8,7 +8,7 @@
           {{ rowData.registDate }}
         </div>
       </div>
-      <div class="notice-content">{{ rowData.noticeBoardContent }}</div>
+      <div class="notice-content" v-html="rowData.noticeBoardContent" />
     </div>
   </div>
 </template>

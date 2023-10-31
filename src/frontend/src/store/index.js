@@ -91,6 +91,8 @@ export default createStore({
           return { ...response.data[key], number: number++ }; // 새로운 객체를 생성하여 반환
         });
 
+      response.data.reverse();
+
       noticeCheckList.forEach((item) => {
         item.number = "공지";
       });

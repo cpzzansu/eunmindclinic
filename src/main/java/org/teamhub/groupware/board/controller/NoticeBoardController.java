@@ -2,10 +2,7 @@ package org.teamhub.groupware.board.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.teamhub.groupware.board.payload.NoticeBoardDto;
 import org.teamhub.groupware.board.service.NoticeBoardService;
 
@@ -26,5 +23,15 @@ public class NoticeBoardController {
     @GetMapping("/noticeBoardDetail")
     public NoticeBoardDto getNoticeBoardDetail(@RequestParam(name="id") String id){
         return noticeBoardService.getNoticeBoardDetail(id);
+    }
+
+    @PostMapping("/noticeAdd")
+    public void noticeBoardAdd(@RequestBody NoticeBoardDto noticeBoardDto){
+        noticeBoardService.noticeBoardAdd(noticeBoardDto);
+    }
+
+    @PostMapping("/noticeModify")
+    public void noticeBoardModify(@RequestBody NoticeBoardDto noticeBoardDto){
+        noticeBoardService.noticeBoardModify(noticeBoardDto);
     }
 }

@@ -70,7 +70,6 @@ export default defineComponent({
         .post("/api/auth/login", data)
         .then((response) => {
           const accessToken = response.data.accessToken;
-
           localStorage.setItem("accessToken", accessToken);
           router.push("/adminHome");
         })

@@ -2,6 +2,7 @@ package org.teamhub.groupware.board.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.teamhub.groupware.board.payload.NoticeBoardDto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -30,7 +31,7 @@ public class NoticeBoard {
     private String writerId;
 
     @Column(name = "regist_date")
-    private LocalDate registDate;
+    private LocalDateTime registDate;
 
     @Column(name = "view_count")
     private int viewCount;
@@ -39,9 +40,17 @@ public class NoticeBoard {
     private String updaterId;
 
     @Column(name = "update_date")
-    private LocalDate updateDate;
+    private LocalDateTime updateDate;
 
     public void increaseViewCount(){
         this.viewCount++;
+    }
+
+    public void modifyNoticeBoard(NoticeBoardDto noticeBoardDto){
+        this.noticeBoardTitle = noticeBoardDto.getNoticeBoardTitle();
+        this.noticeBoardContent = noticeBoardDto.getNoticeBoardContent();
+        this.noticeCheck = noticeBoardDto.getNoticeCheck();
+        this.updaterId = noticeBoardDto.getUpdaterId();
+        this.updateDate = LocalDateTime.now();
     }
 }

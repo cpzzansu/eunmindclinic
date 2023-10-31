@@ -60,7 +60,9 @@ public class SecurityConfig {
             "/galleryAdd",
             "/getGallery",
             "/deleteGallery",
-            "/modifyGallery"
+            "/modifyGallery",
+            "/noticeAdd",
+            "/noticeModify"
     };
 
     private final UserDetailsService userDetailsService;

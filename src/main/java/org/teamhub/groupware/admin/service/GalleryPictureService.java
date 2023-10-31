@@ -84,7 +84,6 @@ public class GalleryPictureService {
                     .updateDate(LocalDateTime.now())
                     .build();
             Optional<GalleryPicture> galleryPicture = galleryPictureRepository.findById(galleryId);
-            log.info(galleryPictureDto.toString());
             if(galleryPicture.isPresent()){
                 galleryPicture.get().modifyGallery(galleryPictureDto);
             }

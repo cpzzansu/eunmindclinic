@@ -116,6 +116,18 @@ export default {
       });
     };
 
+    const sortMethod = (rows, sortBy, descending) => {
+      if (sortBy !== "id") return rows;
+
+      const sortedRows = [...rows].sort((a, b) => {
+        if (a[sortBy] === "공지") return -1; // '공지' 값이면 a를 우선순위로 합니다.
+        if (b[sortBy] === "공지") return 1; // '공지' 값이면 b를 우선순위로 합니다.
+        return descending ? a[sortBy] - b[sortBy] : b[sortBy] - a[sortBy];
+      });
+
+      return sortedRows;
+    };
+
     return {
       searchTerm,
       searchType,
@@ -127,6 +139,7 @@ export default {
       myInitialPagination: {
         rowsPerPage: 0,
       },
+      sortMethod,
     };
   },
 };
