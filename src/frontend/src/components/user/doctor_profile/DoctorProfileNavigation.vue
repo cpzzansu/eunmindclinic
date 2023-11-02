@@ -1,25 +1,46 @@
 <template>
   <div class="profile-btn-div row col-12 justify-center">
     <RouterLink class="menu-link" to="/doctorProfile">
-      <div class="info-more row justify-center items-center" :class="{'active-link': $route.path === '/doctorProfile'}">약 력</div>
+      <div
+        class="info-more row justify-center items-center"
+        :class="{ 'active-link': $route.path === '/doctorProfile' }"
+      >
+        약 력
+      </div>
     </RouterLink>
-    <RouterLink class="menu-link" to="/doctorProfile/academicActivities" v-slot="{isActive}">
-      <div class="info-more row justify-center items-center" :class="{'active-link': isActive}">
+    <RouterLink
+      class="menu-link"
+      to="/doctorProfile/academicActivities"
+      v-slot="{ isActive }"
+    >
+      <div
+        class="info-more row justify-center items-center"
+        :class="{ 'active-link': isActive }"
+      >
         학회활동
       </div>
     </RouterLink>
-    <RouterLink class="menu-link" to="/doctorProfile/academicPublication" v-slot="{isActive}">
-      <div class="info-more row justify-center items-center" :class="{'active-link': isActive}">논 문</div>
+    <RouterLink
+      class="menu-link"
+      to="/doctorProfile/academicPublication"
+      v-slot="{ isActive }"
+    >
+      <div
+        class="info-more row justify-center items-center"
+        :class="{ 'active-link': isActive }"
+      >
+        논 문
+      </div>
     </RouterLink>
   </div>
 </template>
 <script></script>
 <style scoped>
-.active-link.info-more{
+.active-link.info-more {
   background-color: #154726;
   color: #ffffff;
 }
-.info-more{
+.info-more {
   width: 140px;
   height: 49px;
   border-radius: 22px;
@@ -34,5 +55,10 @@
 }
 .menu-link {
   text-decoration: none;
+}
+@media (max-width: 1000px) {
+  .profile-btn-div {
+    margin-top: 50px;
+  }
 }
 </style>

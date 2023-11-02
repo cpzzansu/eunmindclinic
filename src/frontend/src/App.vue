@@ -18,4 +18,10 @@ export default {
 body {
   font-family: "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
 }
+.q-btn-dropdown .q-btn-dropdown__arrow {
+  display: none;
+}
+.dropdown-menu-btn .q-btn-dropdown__arrow {
+  display: none;
+}
 </style>

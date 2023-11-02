@@ -12,10 +12,10 @@
       <DoctorProfileNavigation></DoctorProfileNavigation>
 
       <div v-if="!hasChildRoute" class="doctor-profile-div row col-10 col-md-8">
-        <div class="col-4">
+        <div class="col-12 col-md-4 row justify-center">
           <img src="/images/mask-group.png" style="width: 243px" />
         </div>
-        <div class="col-8 column">
+        <div class="col-12 col-md-8 column">
           <div class="row">
             <div class="doctor-name">은 헌 정</div>
             <div class="doctor-title">정신건강의학과 원장</div>
@@ -127,5 +127,13 @@ export default defineComponent({
   font-size: 16px;
   font-weight: 400;
   line-height: 26px;
+}
+@media (max-width: 1000px) {
+  .main-content {
+    margin-top: 50px;
+  }
+  .doctor-profile-div {
+    margin-top: 50px;
+  }
 }
 </style>
