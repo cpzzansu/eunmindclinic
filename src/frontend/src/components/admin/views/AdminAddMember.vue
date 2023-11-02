@@ -75,11 +75,27 @@ export default defineComponent({
     const memberName = ref(null);
     const memberEmail = ref(null);
 
+    const validate = (input) => {
+      if (input == "" || input == undefined || input == null) {
+        return true;
+      }
+    };
+
     const addMember = () => {
       let username = memberId.value;
       let password = memberPw.value;
       let name = memberName.value;
       let email = memberEmail.value;
+
+      const idValidate = validate(username);
+      const passwordValidate = validate(password);
+      const nameValidate = validate(name);
+      const emailValidate = validate(email);
+
+      if (idValidate || passwordValidate || nameValidate || emailValidate) {
+        alert("모든 정보는 필수 입력사항입니다.");
+        return;
+      }
 
       const data = {
         username: username,

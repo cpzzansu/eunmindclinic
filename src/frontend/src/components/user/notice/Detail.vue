@@ -27,7 +27,7 @@ onMounted(async () => {
   try {
     const response = await axios.get(`/noticeBoardDetail?id=${rowId}`);
     response.data.number = sessionStorage.getItem("number");
-
+    response.data.registDate = response.data.registDate.split("T")[0];
     rowData.value = response.data;
   } catch (error) {
     console.error("Error fetching notice board detail:", error);

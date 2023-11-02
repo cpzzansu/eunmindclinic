@@ -22,46 +22,16 @@ import org.teamhub.groupware.common.security.JwtAuthenticationFilter;
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private static final String[] AUTH_WHITELIST = {
-            "/api/v1/auth/**",
-            "/v3/api-docs/**",
-            "/v3/api-docs.yaml",
-            "/swagger-ui/**",
-            "/swagger-ui.html"
-    };
-    private static final String[] BASIC_LIST = {
-            "/login",
-            "/index.html",
-            "/static/**",
-            "/favicon.ico",
-            "/assets/**",
-            "/",
-            "/images/**",
-            "/academicActivities",
-            "/medical",
-            "/overseasPresent",
-            "/mba",
-            "/pubs",
-            "/noticeBoardList",
-            "/notice/**",
-            "/greeting",
-            "/clinicalDepartments",
-            "/clinicHours",
-            "/doctorProfile/**",
-            "/gallery",
-            "/directions",
-            "/detail/**",
-            "/noticeBoardDetail/**",
-            "/admin",
-            "/adminAddMember"
-    };
+
     private static final String[] AUTHENTICATE_LIST = {
             "/api/auth/private",
             "/galleryAdd",
             "/deleteGallery",
             "/modifyGallery",
             "/noticeAdd",
-            "/noticeModify"
+            "/noticeModify",
+            "/getMemberList",
+            "/memberRoleChange"
     };
 
     private final UserDetailsService userDetailsService;
@@ -84,8 +54,6 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((authorize) ->
                         authorize
-                                .requestMatchers(AUTH_WHITELIST).permitAll()
-                                .requestMatchers(BASIC_LIST).permitAll()
                                 .requestMatchers("/api/auth/**").permitAll()
                                 .requestMatchers(AUTHENTICATE_LIST).authenticated()
                                 .anyRequest().permitAll()

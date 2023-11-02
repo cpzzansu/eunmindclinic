@@ -85,6 +85,10 @@ export default createStore({
 
       let number = 1;
 
+      response.data.forEach((item) => {
+        item.registDate = item.registDate.split("T")[0];
+      });
+
       const noticeCheckList = Object.keys(response.data)
         .filter((key) => response.data[key].noticeCheck === 1)
         .map((key) => {

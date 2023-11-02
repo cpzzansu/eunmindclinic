@@ -28,6 +28,12 @@
           </q-item-section>
           <q-item-section> 공지사항 관리 </q-item-section>
         </q-item>
+        <q-item v-ripple clickable @click="member">
+          <q-item-section avatar>
+            <q-icon />
+          </q-item-section>
+          <q-item-section> 계정 관리 </q-item-section>
+        </q-item>
       </q-scroll-area>
     </q-drawer>
     <q-page-container>
@@ -54,6 +60,10 @@ export default {
       router.push("/adminHome/notice");
     };
 
+    const member = () => {
+      router.push("/adminHome/member");
+    };
+
     return {
       leftDrawerOpen,
       toggleLeftDrawer() {
@@ -61,6 +71,7 @@ export default {
       },
       gallery,
       notice,
+      member,
     };
   },
 };

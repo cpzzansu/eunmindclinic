@@ -191,6 +191,10 @@ onMounted(async () => {
   const response = await axios.get("/noticeBoardList");
   let number = 1;
 
+  response.data.forEach((item) => {
+    item.registDate = item.registDate.split("T")[0];
+  });
+
   rows.value = Object.keys(response.data).map((key) => {
     return { ...response.data[key], number: number++ }; // 새로운 객체를 생성하여 반환
   });

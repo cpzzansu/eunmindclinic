@@ -20,6 +20,7 @@ import AdminAddMember from "@/components/admin/views/AdminAddMember.vue";
 import axios from "axios";
 import AdminGallery from "@/components/admin/views/AdminGallery.vue";
 import AdminNotice from "@/components/admin/views/AdminNotice.vue";
+import AdminMember from "@/components/admin/views/AdminMember.vue";
 
 const routes = [
   {
@@ -164,6 +165,12 @@ const routes = [
         path: "notice",
         name: "adminNotice",
         component: AdminNotice,
+        meta: { requiresAuth: true },
+      },
+      {
+        path: "member",
+        name: "adminMember",
+        component: AdminMember,
         meta: { requiresAuth: true },
       },
     ],

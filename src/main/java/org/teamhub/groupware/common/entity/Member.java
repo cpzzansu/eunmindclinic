@@ -2,6 +2,7 @@ package org.teamhub.groupware.common.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.teamhub.groupware.common.payload.MemberDto;
 
 import java.time.LocalDateTime;
 
@@ -57,6 +58,10 @@ public class Member {
     // 수정 삭제
     @Column(name = "ldate", nullable = true)
     private LocalDateTime ldate;
+
+    public void changeRole(MemberDto memberDto){
+        this.role = memberDto.getRole();
+    }
 
 
 }
