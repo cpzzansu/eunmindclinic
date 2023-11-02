@@ -18,7 +18,11 @@
       <div class="row justify-center">
         <div class="gallery-picture-div col-10 col-md-8">
           <img :src="currentImage" class="gallery-picture" />
-          <div class="navigation-button prev" @click="goToPreviousImage">
+          <div
+            v-if="currentImageIndex !== 0"
+            class="navigation-button prev"
+            @click="goToPreviousImage"
+          >
             <svg
               fill="none"
               height="80"
@@ -33,7 +37,11 @@
               />
             </svg>
           </div>
-          <div class="navigation-button next" @click="goToNextImage">
+          <div
+            v-if="currentImageIndex !== imageList.length - 1"
+            class="navigation-button next"
+            @click="goToNextImage"
+          >
             <svg
               fill="none"
               height="68"
@@ -53,6 +61,7 @@
       <div class="image-list-wrapper row justify-center">
         <div class="image-list col-10 col-md-8">
           <div :style="{ transform: getTransform() }" class="moving-div">
+            <div v-if="currentImageIndex !== 0" style="width: 100px"></div>
             <div
               v-for="(image, index) in imageList"
               :key="image"
@@ -217,7 +226,7 @@ export default defineComponent({
   margin-bottom: 123px;
 }
 .image-list::-webkit-scrollbar {
-  height: 7px;
+  display: none;
 }
 .image-list::-webkit-scrollbar-track {
   margin-top: 15px;
