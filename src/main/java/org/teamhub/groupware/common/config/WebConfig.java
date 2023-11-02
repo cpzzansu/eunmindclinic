@@ -10,9 +10,9 @@ public class WebConfig implements WebMvcConfigurer {
 
     public void addResourceHandlers(ResourceHandlerRegistry registry){
         registry.addResourceHandler("/localImages/**")
-                .addResourceLocations("file:/Users/kimjunsu/localImages/"); //맥용
+//                .addResourceLocations("file:/Users/kimjunsu/localImages/"); //맥용
 //                .addResourceLocations("file:/Users/user/localImages/"); // 윈도우용
-//                .addResourceLocations("file:/root/localImages/"); // 리눅스
+                .addResourceLocations("file:/root/localImages/"); // 리눅스
 
     }
 
