@@ -2,10 +2,7 @@ package org.teamhub.groupware.admin.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.teamhub.groupware.admin.service.AdminMemberService;
 import org.teamhub.groupware.common.payload.MemberDto;
 
@@ -27,4 +24,10 @@ public class AdminMemberController {
     public void memberRoleChange(@RequestBody MemberDto memberDto){
         adminMemberService.memberRoleChange(memberDto);
     }
+
+    @DeleteMapping ("/memberDelete")
+    public void memberDelete(@RequestParam(name = "id") Long id){
+        adminMemberService.memberDelete(id);
+    }
+
 }

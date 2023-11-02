@@ -45,7 +45,7 @@
           color="red"
           label="삭제하기"
           v-close-popup
-          @click="noticeDelete"
+          @click="deleteRole"
         />
         <q-btn flat label="수정하기" @click="roleModify" />
       </q-card-actions>
@@ -68,7 +68,7 @@
       <q-card>
         <q-card-section class="row items-center">
           <span class="q-ml-sm"
-            >{{ modifyId }} 계정을 정말로 삭제하시겠습니까?</span
+            >{{ modifyUsername }} 계정을 정말로 삭제하시겠습니까?</span
           >
         </q-card-section>
 
@@ -199,33 +199,27 @@ const confirmYes = async () => {
   }
 };
 
-// const noticeModify = async () => {
-//   const data = {
-//     id: Number(modifyRowId.value),
-//     noticeBoardTitle: modifyRowTitle.value,
-//     noticeBoardContent: modifyRowContent.value,
-//     noticeCheck: modifyRowNoticeCheck.value === true ? 1 : 0,
-//   };
-//
-//   const token = localStorage.getItem("accessToken");
-//   if (token) {
-//     try {
-//       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-//       console.log(data);
-//       const response = await axios.post("/noticeModify", data);
-//       if (response.status === 200) {
-//         router.go(0);
-//       }
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   } else {
-//     alert("로그인이 필요한 기능입니다.");
-//   }
-//   s;
-// };
+const deleteRole = () => {
+  deleteConfirm.value = true;
+};
 
-const deleteRole = () => {};
+const deleteMember = async () => {
+  const token = localStorage.getItem("accessToken");
+  if (token) {
+    try {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      const response = await axios.delete("/memberDelete", {
+        params: { id: Number(modifyId.value) },
+      });
+
+      router.go(0);
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    alert("로그인이 필요한 기능입니다.");
+  }
+};
 </script>
 <style scoped>
 .content-div {

@@ -31,7 +31,8 @@ public class SecurityConfig {
             "/noticeAdd",
             "/noticeModify",
             "/getMemberList",
-            "/memberRoleChange"
+            "/memberRoleChange",
+            "/memberDelete"
     };
 
     private final UserDetailsService userDetailsService;

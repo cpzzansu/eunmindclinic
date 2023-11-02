@@ -47,4 +47,8 @@ public class AdminMemberService {
             member.changeRole(memberDto);
         }
     }
+
+    public void memberDelete(Long id) {
+        memberRepository.deleteById(id);
+    }
 }
