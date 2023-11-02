@@ -58,6 +58,8 @@
               :key="image"
               :class="{ selected: isSelected(index) }"
               class="image-item"
+              click-able
+              @click="navigationImage(index)"
             >
               <img :src="image" />
             </div>
@@ -124,6 +126,10 @@ export default defineComponent({
       return `translateX(-${currentImageIndex.value * totalWidth}px)`;
     }
 
+    const navigationImage = (index) => {
+      currentImageIndex.value = index;
+    };
+
     return {
       imageList,
       currentImageIndex,
@@ -133,6 +139,7 @@ export default defineComponent({
       isSelected,
       slide: ref(1),
       getTransform,
+      navigationImage,
     };
   },
 });
@@ -197,10 +204,12 @@ export default defineComponent({
     transform 0.4s ease,
     margin-right 0.3s ease;
   border-radius: 2px;
+  cursor: pointer;
 }
 .image-item.selected img {
   transform: scale(1.3);
   margin-right: 50px;
+  margin-left: 36px;
   border-radius: 2px;
 }
 .image-list-wrapper {
