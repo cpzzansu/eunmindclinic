@@ -20,6 +20,7 @@
           <q-input
             v-model="memberPw"
             class="member-pw-input"
+            type="password"
             label="비밀번호"
             outlined
           />
@@ -34,7 +35,7 @@
               회원가입</RouterLink
             >
             <div class="side-bar">|</div>
-            <div @click="testlogin">비밀번호찾기</div>
+            <div @click="findPassword">비밀번호찾기</div>
           </div>
         </div>
       </div>
@@ -44,7 +45,7 @@
   </div>
 </template>
 <script>
-import { defineComponent, ref } from "vue";
+import { defineComponent, onBeforeUnmount, onMounted, ref } from "vue";
 import FooterDiv from "@/components/user/footer/FooterDiv.vue";
 import NavigationButtonDiv from "@/components/user/navi_btn/NavigationButtonDiv.vue";
 import NavigationBar from "@/components/user/navi/NavigationBar.vue";
@@ -58,6 +59,21 @@ export default defineComponent({
 
     const memberId = ref("");
     const memberPw = ref("");
+
+    const checkEnterKey = (event) => {
+      // keyCode 13은 엔터 키를 의미
+      if (event.keyCode === 13) {
+        login();
+      }
+    };
+
+    onMounted(() => {
+      window.addEventListener("keyup", checkEnterKey);
+    });
+
+    onBeforeUnmount(() => {
+      window.removeEventListener("keyup", checkEnterKey);
+    });
 
     const login = () => {
       const data = {
@@ -78,28 +94,15 @@ export default defineComponent({
         });
     };
 
-    const testlogin = () => {
-      const token = localStorage.getItem("accessToken");
-      console.log(token);
-      axios
-        .get("/admin/home", {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        })
-        .then((response) => {
-          router.push("/adminHome");
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    const findPassword = () => {
+      router.push("/findPassword");
     };
 
     return {
       memberId,
       memberPw,
       login,
-      testlogin,
+      findPassword,
     };
   },
 });

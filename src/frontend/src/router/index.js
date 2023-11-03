@@ -21,6 +21,8 @@ import axios from "axios";
 import AdminGallery from "@/components/admin/views/AdminGallery.vue";
 import AdminNotice from "@/components/admin/views/AdminNotice.vue";
 import AdminMember from "@/components/admin/views/AdminMember.vue";
+import AdminFindPassword from "@/components/admin/views/AdminFindPassword.vue";
+import AdminChangePassword from "@/components/admin/views/AdminChangePassword.vue";
 
 const routes = [
   {
@@ -143,6 +145,16 @@ const routes = [
     path: "/admin",
     name: "adminLogin",
     component: AdminLogin,
+  },
+  {
+    path: "/findPassword",
+    name: "adminFindPassword",
+    component: AdminFindPassword,
+  },
+  {
+    path: "/changePassword",
+    name: "adminChangePassword",
+    component: AdminChangePassword,
   },
   {
     path: "/adminAddMember",

@@ -63,5 +63,7 @@ public class Member {
         this.role = memberDto.getRole();
     }
 
+    public void changePassword(MemberDto memberDto) {this.password = memberDto.getPassword();}
+
 
 }

@@ -54,6 +54,53 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
     }
 
     @Override
+    public Optional<MemberDto> findByUsername(String username) {
+        return Optional.ofNullable(queryFactory
+                .select(new QMemberDto(
+                        member.id,
+                        member.username,
+                        member.password,
+                        member.name,
+                        member.email,
+                        member.tel,
+                        member.hp,
+                        member.role,
+                        member.status,
+                        member.createdBy,
+                        member.department,
+                        member.position,
+                        member.rdate,
+                        member.ldate
+                ))
+                .from(member)
+                .where(member.username.eq(username))
+                .fetchOne());
+    }
+    @Override
+    public Optional<MemberDto> findByEmail(String email) {
+        return Optional.ofNullable(queryFactory
+                .select(new QMemberDto(
+                        member.id,
+                        member.username,
+                        member.password,
+                        member.name,
+                        member.email,
+                        member.tel,
+                        member.hp,
+                        member.role,
+                        member.status,
+                        member.createdBy,
+                        member.department,
+                        member.position,
+                        member.rdate,
+                        member.ldate
+                ))
+                .from(member)
+                .where(member.email.eq(email))
+                .fetchOne());
+    }
+
+    @Override
     public Page<MemberDto> searchMembers(MemberSearchCondition condition, Pageable pageable) {
         BooleanExpression predicate = buildPredicate(condition);
 

@@ -8,7 +8,8 @@ public class SPAController {
 
     @RequestMapping({"/", "/notice/**", "/greeting","/clinicalDepartments", "/clinicHours",
             "/doctorProfile/**", "/gallery", "/directions", "/detail/**", "admin",
-            "/AdminAddMember", "/admin/home", "/adminHome","/adminHome/gallery", "/adminHome/notice", "/adminHome/member" })
+            "/AdminAddMember", "/admin/home", "/adminHome","/adminHome/gallery", "/adminHome/notice",
+            "/adminHome/member", "/findPassword" })
     public String index(){
         return "forward:/index.html";
     }

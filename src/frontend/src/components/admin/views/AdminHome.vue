@@ -15,24 +15,33 @@
 
     <q-drawer v-model="leftDrawerOpen" bordered show-if-above side="left">
       <!-- drawer content -->
-      <q-scroll-area class="fit drawer-menu">
-        <q-item class="drawer-item" v-ripple clickable @click="gallery">
+      <q-scroll-area class="fit drawer-menu flex flex-column">
+        <div class="flex-auto">
+          <q-item class="drawer-item" v-ripple clickable @click="gallery">
+            <q-item-section avatar>
+              <q-icon />
+            </q-item-section>
+            <q-item-section> 갤러리 관리 </q-item-section>
+          </q-item>
+          <q-item v-ripple clickable @click="notice">
+            <q-item-section avatar>
+              <q-icon />
+            </q-item-section>
+            <q-item-section> 공지사항 관리 </q-item-section>
+          </q-item>
+          <q-item v-ripple clickable @click="member">
+            <q-item-section avatar>
+              <q-icon />
+            </q-item-section>
+            <q-item-section> 계정 관리 </q-item-section>
+          </q-item>
+        </div>
+
+        <q-item v-ripple clickable @click="logout">
           <q-item-section avatar>
             <q-icon />
           </q-item-section>
-          <q-item-section> 갤러리 관리 </q-item-section>
-        </q-item>
-        <q-item v-ripple clickable @click="notice">
-          <q-item-section avatar>
-            <q-icon />
-          </q-item-section>
-          <q-item-section> 공지사항 관리 </q-item-section>
-        </q-item>
-        <q-item v-ripple clickable @click="member">
-          <q-item-section avatar>
-            <q-icon />
-          </q-item-section>
-          <q-item-section> 계정 관리 </q-item-section>
+          <q-item-section> 로그아웃 </q-item-section>
         </q-item>
       </q-scroll-area>
     </q-drawer>
@@ -64,6 +73,11 @@ export default {
       router.push("/adminHome/member");
     };
 
+    const logout = () => {
+      localStorage.removeItem("accessToken");
+      router.push("/admin");
+    };
+
     return {
       leftDrawerOpen,
       toggleLeftDrawer() {
@@ -72,6 +86,7 @@ export default {
       gallery,
       notice,
       member,
+      logout,
     };
   },
 };
