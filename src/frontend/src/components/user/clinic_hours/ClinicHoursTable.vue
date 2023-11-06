@@ -1,6 +1,6 @@
 <template>
   <div class="col-10 col-md-8">
-    <div class="q-pa-md clinic-hours-table">
+    <div class="clinic-hours-table">
       <q-table
         :columns="columns"
         :pagination="myInitialPagination"

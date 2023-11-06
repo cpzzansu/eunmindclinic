@@ -45,6 +45,7 @@ onMounted(async () => {
   font-weight: 500;
   border: 1px rgba(240, 246, 242, 1) solid;
   color: #333333;
+  min-height: 467px;
 }
 .notice-number {
   display: flex;

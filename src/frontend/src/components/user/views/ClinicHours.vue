@@ -39,13 +39,10 @@
           </div>
         </div>
         <ClinicHoursTable></ClinicHoursTable>
-        <div class="row justify-center clinic-phone-div col-10 col-md-8">
-          <img src="images/phone.png" style="width: 350px; margin: 10px 10px" />
-          <img src="images/fax.png" style="width: 350px; margin: 10px 10px" />
-          <img
-            src="images/reservation.png"
-            style="width: 350px; margin: 10px 10px"
-          />
+        <div class="row justify-between clinic-phone-div col-10 col-md-8">
+          <img src="images/phone.png" style="width: 350px" />
+          <img src="images/fax.png" style="width: 350px" />
+          <img src="images/reservation.png" style="width: 350px" />
         </div>
       </div>
     </div>

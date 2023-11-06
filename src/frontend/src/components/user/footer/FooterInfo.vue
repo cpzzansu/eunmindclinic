@@ -1,7 +1,6 @@
 <template>
   <div class="column items-center">
     <img class="footer-logo" src="/images/footer-logo.png" />
-    <div class="footer-name">은헌정 정신건강의학과의원</div>
     <div class="footer-info-name">은헌정 정신건강의학과 의원</div>
     <div class="footer-info">
       전라북도 전주시 완산구 백제대로 271, 3층(수지빌딩), 중화산동 2가
@@ -27,7 +26,8 @@
       format("woff");
 }
 .footer-logo {
-  width: 50px;
+  width: 260px;
+  margin-bottom: 30px;
 }
 .footer-name {
   font-family: Godo;

@@ -8,7 +8,13 @@
         </div>
       </div>
     </div>
-    <div class="main-content row justify-center">
+    <div class="detail-content row justify-center">
+      <div class="row col-10 col-md-8 justify-end">
+        <div class="to-list-div">
+          <RouterLink to="/notice" class="to-list">목록</RouterLink>
+        </div>
+      </div>
+
       <Detail></Detail>
     </div>
     <FooterDiv></FooterDiv>
@@ -37,11 +43,31 @@ export default defineComponent({
 </script>
 <style scoped>
 /* Your CSS styles here */
-.main-content {
-  margin-top: 100px;
+.detail-content {
   margin-bottom: 150px;
-  height: 467px;
+  height: auto;
   color: #333333;
+}
+.to-list-div {
+  height: 100px;
+  display: flex;
+  align-items: end;
+}
+.to-list {
+  width: 56px;
+  height: 27px;
+  background: #333333;
+  border-radius: 2px;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  display: inline-flex;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  text-decoration: none;
 }
 .main-banner-sentence {
   font-weight: 700;

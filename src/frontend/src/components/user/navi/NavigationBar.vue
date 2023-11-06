@@ -4,13 +4,41 @@
       <RouterLink class="menu-link" to="/"
         ><img class="nav-logo" src="/images/big.png"
       /></RouterLink>
-      <navi-menu linkTo="/greeting" menu="인사말"></navi-menu>
-      <navi-menu linkTo="/clinicalDepartments" menu="진료과목"></navi-menu>
-      <navi-menu linkTo="/clinicHours" menu="진료시간"></navi-menu>
-      <navi-menu linkTo="/doctorProfile" menu="의료진 소개"></navi-menu>
-      <navi-menu linkTo="/gallery" menu="갤러리"></navi-menu>
-      <navi-menu linkTo="/notice" menu="공지사항"></navi-menu>
-      <navi-menu linkTo="/directions" menu="오시는 길"></navi-menu>
+      <navi-menu
+        linkTo="/greeting"
+        menu="인사말"
+        :navi-active="isGreeting"
+      ></navi-menu>
+      <navi-menu
+        linkTo="/clinicalDepartments"
+        menu="진료과목"
+        :navi-active="isClinicalDepartments"
+      ></navi-menu>
+      <navi-menu
+        linkTo="/clinicHours"
+        menu="진료시간"
+        :navi-active="isClinicHours"
+      ></navi-menu>
+      <navi-menu
+        linkTo="/doctorProfile"
+        menu="의료진 소개"
+        :navi-active="isDoctorProfile"
+      ></navi-menu>
+      <navi-menu
+        linkTo="/gallery"
+        menu="갤러리"
+        :navi-active="isGallery"
+      ></navi-menu>
+      <navi-menu
+        linkTo="/notice"
+        menu="공지사항"
+        :navi-active="isNotice"
+      ></navi-menu>
+      <navi-menu
+        linkTo="/directions"
+        menu="오시는 길"
+        :navi-active="isDirections"
+      ></navi-menu>
       <div class="q-pa-md dropdown-menu-div">
         <q-btn-dropdown
           flat
@@ -77,15 +105,27 @@
   </div>
 </template>
 <script>
-import { defineComponent, ref } from "vue";
+import { computed, defineComponent, ref } from "vue";
 import NaviMenu from "@/components/user/navi/NaviMenu.vue";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 export default defineComponent({
   components: { NaviMenu },
   setup() {
     const showDropdownMenu = ref(false);
     const router = useRouter();
+    const route = useRoute();
+    const isGreeting = computed(() => route.path === "/greeting");
+    const isClinicalDepartments = computed(
+      () => route.path === "/clinicalDepartments",
+    );
+    const isClinicHours = computed(() => route.path === "/clinicHours");
+    const isDoctorProfile = computed(() =>
+      route.path.startsWith("/doctorProfile"),
+    );
+    const isGallery = computed(() => route.path === "/gallery");
+    const isNotice = computed(() => route.path === "/notice");
+    const isDirections = computed(() => route.path === "/directions");
 
     const toggleDropdownMenu = () => {
       showDropdownMenu.value = !showDropdownMenu.value;
@@ -123,6 +163,13 @@ export default defineComponent({
       onGallery,
       onNotice,
       onDirections,
+      isGreeting,
+      isClinicalDepartments,
+      isClinicHours,
+      isDoctorProfile,
+      isGallery,
+      isNotice,
+      isDirections,
     };
   },
 });
