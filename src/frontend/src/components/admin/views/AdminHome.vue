@@ -4,7 +4,7 @@
       <q-toolbar>
         <q-btn dense flat icon="menu" round @click="toggleLeftDrawer" />
 
-        <q-toolbar-title class="main-font">
+        <q-toolbar-title class="main-font" @click="toAdmainHome">
           <q-avatar>
             <img src="/images/logo-small.png" />
           </q-avatar>
@@ -47,19 +47,54 @@
     </q-drawer>
     <q-page-container>
       <router-view />
+      <div v-if="isAtAdminHome">
+        <div class="content-div">
+          <h3 style="font-weight: 700">관리자 페이지입니다.</h3>
+          <div class="main-content row justify-start">
+            <div class="q-pa-md col-5">
+              <div class="q-gutter-y-md column">
+                <q-input
+                  v-model="memberId"
+                  class="member-id-input"
+                  label="아이디"
+                  readonly
+                  outlined
+                />
+                <q-input
+                  v-model="memberEmail"
+                  class="member-id-input"
+                  label="이메일"
+                  outlined
+                />
+                <q-btn
+                  label="email 변경"
+                  outline
+                  style="color: #149473; height: 50px; margin-bottom: 10px"
+                  @click="changeEmail"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { computed, onMounted, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import axios from "axios";
 
 export default {
   setup() {
     const router = useRouter();
+    const route = useRoute();
+    const memberId = ref("");
+    const memberEmail = ref("");
 
     const leftDrawerOpen = ref(false);
+    const isAtAdminHome = computed(() => route.path === "/adminHome");
 
     const gallery = () => {
       router.push("/adminHome/gallery");
@@ -78,6 +113,24 @@ export default {
       router.push("/admin");
     };
 
+    const toAdmainHome = () => {
+      router.push("/adminHome");
+    };
+
+    onMounted(async () => {
+      memberId.value = sessionStorage.getItem("memberId");
+
+      const response = await axios.get("/getMember", {
+        params: {
+          username: memberId.value,
+        },
+      });
+
+      memberEmail.value = response.data.email;
+    });
+
+    const changeEmail = () => {};
+
     return {
       leftDrawerOpen,
       toggleLeftDrawer() {
@@ -87,6 +140,11 @@ export default {
       notice,
       member,
       logout,
+      isAtAdminHome,
+      toAdmainHome,
+      memberId,
+      memberEmail,
+      changeEmail,
     };
   },
 };
@@ -100,6 +158,7 @@ export default {
 .main-font {
   font-size: 40px;
   font-weight: 700;
+  cursor: pointer;
 }
 .drawer-menu {
   font-size: 18px;
@@ -108,5 +167,10 @@ export default {
 }
 .drawer-item {
   margin-top: 10px;
+}
+.content-div {
+  margin: 30px;
+  font-weight: 700;
+  color: #333333;
 }
 </style>

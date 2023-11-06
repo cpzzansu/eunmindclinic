@@ -50,4 +50,9 @@ public class AdminMemberController {
         adminMemberService.changePassword(memberDto);
     }
 
+    @GetMapping("/getMember")
+    public MemberDto getMember(@RequestParam(name = "username") String username){
+        return adminMemberService.getMember(username);
+    }
+
 }

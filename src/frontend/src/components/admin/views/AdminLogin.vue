@@ -87,10 +87,12 @@ export default defineComponent({
         .then((response) => {
           const accessToken = response.data.accessToken;
           localStorage.setItem("accessToken", accessToken);
+          sessionStorage.setItem("memberId", memberId.value);
           router.push("/adminHome");
         })
         .catch((error) => {
           console.log(error);
+          localStorage.removeItem("accessToken");
         });
     };
 

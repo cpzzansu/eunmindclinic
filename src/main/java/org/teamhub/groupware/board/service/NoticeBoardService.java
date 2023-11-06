@@ -46,6 +46,7 @@ public class NoticeBoardService {
     public NoticeBoardDto getNoticeBoardDetail(String id) {
         Long longId = Long.parseLong(id);
         NoticeBoard  noticeBoard = noticeBoardRepository.getReferenceById(longId);
+        noticeBoard.increaseViewCount();
         return NoticeBoardMapper.toDto(noticeBoard);
     }
 

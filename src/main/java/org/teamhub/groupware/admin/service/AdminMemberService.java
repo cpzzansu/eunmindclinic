@@ -109,4 +109,14 @@ public class AdminMemberService {
             }
         }
     }
+
+    public MemberDto getMember(String username) {
+
+        Optional<MemberDto> optionalMemberDto = memberRepository.findByUsername(username);
+        MemberDto memberDto = null;
+        if(optionalMemberDto.isPresent()){
+            memberDto = optionalMemberDto.get();
+        }
+        return memberDto;
+    }
 }

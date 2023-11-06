@@ -204,8 +204,6 @@ router.beforeEach(async (to, from, next) => {
 
       try {
         const response = await axios.get("/api/auth/private");
-
-        console.log(response);
         if (response.status === 200) {
           next();
         } else {
