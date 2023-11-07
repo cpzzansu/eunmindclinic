@@ -216,7 +216,7 @@ export default defineComponent({
     font-size: 15px;
   }
   .navigation-bar-div {
-    height: 60px;
+    height: 75px;
   }
 }
 @media (max-width: 1300px) {
@@ -235,6 +235,10 @@ export default defineComponent({
 @media (max-width: 580px) {
   .nav-logo {
     width: 250px;
+    margin-right: 10px;
+  }
+  .navigation-bar-div {
+    padding: 0px 30px;
   }
 }
 </style>
