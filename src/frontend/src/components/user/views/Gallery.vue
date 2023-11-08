@@ -59,9 +59,8 @@
         </div>
       </div>
       <div class="image-list-wrapper row justify-center">
-        <div class="image-list col-10 col-md-8">
-          <div :style="{ transform: getTransform() }" class="moving-div">
-            <div v-if="currentImageIndex !== 0" style="width: 100px"></div>
+        <div class="image-list col-10 col-md-8" ref="scrollContainer">
+          <div class="moving-div">
             <div
               v-for="(image, index) in imageList"
               :key="image"
@@ -91,6 +90,7 @@ export default defineComponent({
   setup() {
     const currentImageIndex = ref(0);
     const imageList = ref([]);
+    const scrollContainer = ref(null);
 
     onMounted(async () => {
       const response = await axios.get("/getGallery");
@@ -130,13 +130,30 @@ export default defineComponent({
       const imageWidth = 235; // 이미지의 너비 (예: 100px)
       const margin = 10; // 이미지 간의 여백 (예: 10px)
       const totalWidth = imageWidth + margin;
-
-      // 이미지 리스트 전체를 translateX로 움직입니다.
-      return `translateX(-${currentImageIndex.value * totalWidth}px)`;
+      if (scrollContainer.value) {
+        scrollContainer.value.scrollLeft += 200;
+        console.log(scrollContainer.value.scrollLeft);
+      }
     }
 
     const navigationImage = (index) => {
       currentImageIndex.value = index;
+      const imageWidth = 235; // 이미지의 너비 (예: 100px)
+      const margin = 10; // 이미지 간의 여백 (예: 10px)
+      const totalWidth = imageWidth + margin;
+      let movingWidth;
+      if (index == 0) {
+        movingWidth = 0;
+      } else if (index == 1) {
+        movingWidth = 145;
+      } else {
+        movingWidth = 145 + (index - 1) * totalWidth;
+      }
+
+      if (scrollContainer.value) {
+        scrollContainer.value.scrollLeft = movingWidth;
+        console.log(scrollContainer.value.scrollLeft);
+      }
     };
 
     return {
@@ -149,6 +166,7 @@ export default defineComponent({
       slide: ref(1),
       getTransform,
       navigationImage,
+      scrollContainer,
     };
   },
 });
@@ -205,19 +223,18 @@ export default defineComponent({
   overflow-x: auto; /* 가로 스크롤 활성화 */
   white-space: nowrap; /* 줄바꿈 방지 */
   padding-bottom: 10px;
+  scroll-behavior: smooth;
 }
 .image-item img {
   width: 235px;
   margin-right: 10px; /* 이미지 사이의 간격 */
-  transition:
-    transform 0.4s ease,
-    margin-right 0.3s ease;
   border-radius: 2px;
   cursor: pointer;
 }
 .image-item.selected img {
   transform: scale(1.3);
-  margin-right: 50px;
+  transition: transform 0.3s ease-in-out;
+  margin-right: 45px;
   margin-left: 36px;
   border-radius: 2px;
 }
