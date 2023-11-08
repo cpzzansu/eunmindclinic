@@ -226,10 +226,11 @@ export default defineComponent({
   margin-bottom: 123px;
 }
 .image-list::-webkit-scrollbar {
-  display: none;
+  height: 7px;
 }
 .image-list::-webkit-scrollbar-track {
   margin-top: 15px;
+  background: rgba(217, 217, 217, 0);
 }
 .image-list::-webkit-scrollbar-thumb {
   background: rgba(217, 217, 217, 1);
